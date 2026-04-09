@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Educativo Winston
 
-## Getting Started
+Starter moderno para producción con:
 
-First, run the development server:
+- `Next.js` (App Router)
+- `React`
+- `TypeScript` en modo estricto
+- `Tailwind CSS`
+- `ESLint` + `Prettier`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Requisitos
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Node.js `22` (ver `.nvmrc`)
+- npm `>=10`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts útiles
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `npm run dev`: entorno local
+- `npm run build`: build de producción
+- `npm run start`: ejecutar build localmente
+- `npm run lint`: revisar calidad de código
+- `npm run lint:fix`: corregir lint automáticamente
+- `npm run typecheck`: validar tipos TypeScript
+- `npm run format`: formatear con Prettier
+- `npm run format:check`: validar formato sin modificar
 
-## Learn More
+## Desarrollo local
 
-To learn more about Next.js, take a look at the following resources:
+1. Instala dependencias:
+   ```bash
+   npm install
+   ```
+2. Inicia el servidor:
+   ```bash
+   npm run dev
+   ```
+3. Abre `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Despliegue en Vercel
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Sube el proyecto a GitHub.
+2. En Vercel, usa **New Project** e importa el repositorio.
+3. Vercel detecta Next.js automáticamente y configura build/deploy.
+4. Agrega variables de entorno desde **Project Settings > Environment Variables**.
 
-## Deploy on Vercel
+## Buenas prácticas ya incluidas
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- App Router (arquitectura recomendada por Next.js).
+- `reactStrictMode` habilitado.
+- `poweredByHeader` deshabilitado.
+- Alias `@/*` para imports limpios desde `src`.
+- Base de herramientas para CI (`lint`, `typecheck`, `build`).

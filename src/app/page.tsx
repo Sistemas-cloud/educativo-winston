@@ -1,65 +1,316 @@
+// 2026-04-08: Página principal — conecta Navbar, LoadingScreen, HeroText y
+//             AnimateOnScroll. Los banners no tienen animación propia;
+//             solo íconos y textos usan AnimateOnScroll.
 import Image from "next/image";
+import Link from "next/link";
+
+import AnimateOnScroll from "./components/AnimateOnScroll";
+import HeroText from "./components/HeroText";
+import LoadingScreen from "./components/LoadingScreen";
+import Navbar from "./components/Navbar";
+
+/* ─────────────────────────── Íconos de redes sociales ─────────────────── */
+
+function IconFacebook() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  );
+}
+
+function IconTiktok() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34l-.04-8.22a8.24 8.24 0 0 0 4.82 1.55V5.2a4.85 4.85 0 0 1-1.01-.51z" />
+    </svg>
+  );
+}
+
+function IconWhatsapp() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.858L.057 23.995l6.284-1.648A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.893a9.877 9.877 0 0 1-5.034-1.376l-.361-.214-3.732.979 1.001-3.625-.235-.373A9.847 9.847 0 0 1 2.107 12C2.107 6.527 6.527 2.107 12 2.107c5.474 0 9.893 4.42 9.893 9.893 0 5.474-4.419 9.893-9.893 9.893z" />
+    </svg>
+  );
+}
+
+function IconInstagram() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+    </svg>
+  );
+}
+
+function IconYoutube() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.94 1.96C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+      <polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+    </svg>
+  );
+}
+
+/* ─────────────────────────── Página principal ──────────────────────────── */
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <>
+      {/* Pantalla de carga animada */}
+      <LoadingScreen />
+
+      {/* Navbar sticky con hamburguesa */}
+      <Navbar />
+
+      {/* ══════════════════════════ HERO ══════════════════════════════════ */}
+      {/* 2026-04-08: Portada completa con HeroText centrado y más arriba.
+          El banner NO tiene animación; solo el texto/botón usa HeroText. */}
+      <section className="relative w-full h-[56.25vw] max-h-[100vh] overflow-hidden md:h-[100vh]">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="/uploads/img/INICIO/portada1.jpg"
+          alt="Niño sonriente en el Instituto Educativo Winston"
+          fill
           priority
+          sizes="100vw"
+          className="object-cover object-top"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+        {/* Texto wave + botón CTA centrados */}
+        <HeroText />
+      </section>
+
+      {/* ══════════════════════ BLOQUE 1 — Instituto ══════════════════════ */}
+      {/* 2026-04-08: Solo íconos y textos tienen AnimateOnScroll; el banner no. */}
+      <section className="relative w-full">
+        {/* Banner — sin animación */}
+        <Image
+          src="/uploads/img/INICIO/bloque1.png"
+          alt="Niña sonriente del Instituto Educativo Winston"
+          width={1024}
+          height={576}
+          sizes="100vw"
+          className="h-auto w-full object-cover"
+        />
+
+        {/* Texto superpuesto desktop */}
+        <div className="absolute inset-0 mx-auto hidden w-full max-w-[1100px] md:block">
+          <div className="absolute right-[6%] top-[22%] w-[46%]">
+
+            {/* Título con fadeUp */}
+            <AnimateOnScroll animation="fadeUp" delay={0}>
+              <p className="text-2xl font-light leading-tight text-gray-500 lg:text-3xl">
+                Instituto
+              </p>
+              <h2 className="mb-6 text-4xl font-bold leading-tight text-sky-500 lg:text-5xl">
+                Educativo Winston
+              </h2>
+            </AnimateOnScroll>
+
+            <div className="grid grid-cols-2 gap-5 mb-5">
+              {/* Ícono izquierdo con bounceIn */}
+              <AnimateOnScroll animation="bounceIn" delay={100}>
+                <Image
+                  src="/uploads/img/INICIO/ic-cuidado.png"
+                  alt=""
+                  width={52}
+                  height={52}
+                  aria-hidden="true"
+                  className="mx-auto mb-3 h-[34px] w-[34px] lg:h-[52px] lg:w-[52px]"
+                />
+                <p className="text-justify text-xs leading-relaxed text-gray-500 lg:text-sm">
+                  En el Instituto Educativo Winston Churchill, cuidamos y
+                  formamos a los más pequeños en un entorno seguro, amoroso y
+                  diseñado para potenciar su desarrollo integral.
+                </p>
+              </AnimateOnScroll>
+
+              {/* Ícono derecho con bounceIn */}
+              <AnimateOnScroll animation="bounceIn" delay={200}>
+                <Image
+                  src="/uploads/img/INICIO/ic-carita-feliz.png"
+                  alt=""
+                  width={52}
+                  height={52}
+                  aria-hidden="true"
+                  className="mx-auto mb-3 h-[34px] w-[34px] lg:h-[52px] lg:w-[52px]"
+                />
+                <p className="text-justify text-xs leading-relaxed text-gray-500 lg:text-sm">
+                  Ofrecemos experiencias de aprendizaje divertidas e
+                  interactivas que impulsan su crecimiento cognitivo, emocional
+                  y social, al mismo tiempo que adquieren bases sólidas en
+                  inglés con el modelo Cambridge desde maternal.
+                </p>
+              </AnimateOnScroll>
+            </div>
+
+            {/* Párrafo final con fadeUp */}
+            <AnimateOnScroll animation="fadeUp" delay={300}>
+              <p className="text-justify text-xs leading-relaxed text-gray-500 lg:text-sm">
+                Acompañamos a cada familia en esta etapa decisiva, asegurando
+                que sus hijos crezcan felices, seguros y preparados para un
+                futuro lleno de posibilidades.
+              </p>
+            </AnimateOnScroll>
+          </div>
+        </div>
+
+        {/* Versión móvil del texto */}
+        <div className="bg-white px-6 py-10 md:hidden">
+          <AnimateOnScroll animation="fadeUp">
+            <p className="text-2xl font-light leading-tight text-gray-500">Instituto</p>
+            <h2 className="mb-6 text-4xl font-bold leading-tight text-sky-500">
+              Educativo Winston
+            </h2>
+          </AnimateOnScroll>
+          <div className="mb-5 grid grid-cols-1 gap-5">
+            <AnimateOnScroll animation="slideLeft" delay={100}>
+              <p className="text-justify text-sm leading-relaxed text-gray-500">
+                En el Instituto Educativo Winston Churchill, cuidamos y formamos
+                a los más pequeños en un entorno seguro, amoroso y diseñado para
+                potenciar su desarrollo integral.
+              </p>
+            </AnimateOnScroll>
+            <AnimateOnScroll animation="slideRight" delay={150}>
+              <p className="text-justify text-sm leading-relaxed text-gray-500">
+                Ofrecemos experiencias de aprendizaje divertidas e interactivas
+                que impulsan su crecimiento cognitivo, emocional y social, al
+                mismo tiempo que adquieren bases sólidas en inglés con el modelo
+                Cambridge desde maternal.
+              </p>
+            </AnimateOnScroll>
+          </div>
+          <AnimateOnScroll animation="fadeUp" delay={200}>
+            <p className="text-justify text-sm leading-relaxed text-gray-500">
+              Acompañamos a cada familia en esta etapa decisiva, asegurando que
+              sus hijos crezcan felices, seguros y preparados para un futuro
+              lleno de posibilidades.
+            </p>
+          </AnimateOnScroll>
+        </div>
+      </section>
+
+      {/* ══════════════════ BLOQUE 3 — Maternal / Kinder ══════════════════ */}
+      {/* 2026-04-08: Solo los íconos Maternal/Kinder tienen animación bounceIn. */}
+      <section className="relative overflow-hidden">
+        {/* Banner — sin animación */}
+        <Image
+          src="/uploads/img/INICIO/bloque3.png"
+          alt=""
+          width={1024}
+          height={576}
+          aria-hidden="true"
+          sizes="100vw"
+          className="h-auto w-full object-cover"
+        />
+
+        {/* Íconos con bounceIn */}
+        <div className="absolute inset-0 z-10 flex -translate-y-8 items-center justify-center gap-10 px-6 md:-translate-y-12 md:gap-16">
+          <AnimateOnScroll animation="bounceIn" delay={0} className="inline-block">
+            <Link
+              href="/maternal"
+              className="block transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-white"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              <Image
+                src="/uploads/img/INICIO/maternal.png"
+                alt="Nivel Maternal"
+                width={380}
+                height={380}
+                style={{ width: 380, height: "auto" }}
+              />
+            </Link>
+          </AnimateOnScroll>
+
+          <AnimateOnScroll animation="bounceIn" delay={150} className="inline-block">
+            <Link
+              href="/kinder"
+              className="block transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-white"
             >
-              Learning
-            </a>{" "}
-            center.
+              <Image
+                src="/uploads/img/INICIO/kinder.png"
+                alt="Nivel Kinder"
+                width={380}
+                height={380}
+                style={{ width: 380, height: "auto" }}
+              />
+            </Link>
+          </AnimateOnScroll>
+        </div>
+      </section>
+
+      {/* ══════════════════════ CAMBRIDGE ═════════════════════════════════ */}
+      {/* 2026-04-08: Logo y texto con fadeUp. */}
+      <section className="relative z-20 -mt-28 bg-white py-6 md:-mt-40 md:py-8">
+        <AnimateOnScroll
+          animation="fadeUp"
+          className="mx-auto flex max-w-5xl flex-col items-center justify-center gap-5 px-6 sm:flex-row md:gap-8"
+        >
+          <p className="text-base font-semibold uppercase tracking-[0.3em] text-gray-400 md:text-lg">
+            Certificados por
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <Image
+            src="/uploads/img/LOGOS/logo-cambridge.png"
+            alt="Cambridge English Educational Partner"
+            width={390}
+            height={126}
+            style={{ width: 390, height: "auto" }}
+          />
+        </AnimateOnScroll>
+      </section>
+
+      {/* ══════════════════════════ FOOTER ════════════════════════════════ */}
+      {/* 2026-04-08: Footer actualizado con color #3ADEFC. */}
+      <footer className="bg-[#3ADEFC] px-6 py-5 text-white">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 md:flex-row">
+          {/* Logo + datos */}
+          <div className="flex items-center gap-4">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src="/uploads/img/LOGOS/winston-educativo.png"
+              alt="Logo Instituto Educativo Winston"
+              width={48}
+              height={48}
+              style={{ width: 48, height: "auto" }}
+              className="flex-shrink-0"
             />
-            Deploy Now
-          </a>
+            <div className="text-xs leading-5">
+              <p className="mb-0.5 text-sm font-bold tracking-wider">RAISING BRIGHTER KIDS</p>
+              <p>CALLE 2 #309 COL. JARDÍN 20 DE NOVIEMBRE</p>
+              <p>CD. MADERO, TAMAULIPAS.</p>
+              <p>TEL 833 362 48 19</p>
+            </div>
+          </div>
+
+          {/* Redes sociales */}
+          <div className="flex items-center gap-5">
+            {[
+              { label: "Facebook",  icon: <IconFacebook /> },
+              { label: "TikTok",    icon: <IconTiktok /> },
+              { label: "WhatsApp",  icon: <IconWhatsapp /> },
+              { label: "Instagram", icon: <IconInstagram /> },
+              { label: "YouTube",   icon: <IconYoutube /> },
+            ].map(({ label, icon }) => (
+              <a
+                key={label}
+                href="#"
+                aria-label={label}
+                className="transition-colors hover:text-white/70"
+              >
+                {icon}
+              </a>
+            ))}
+          </div>
+
+          {/* Aviso de privacidad */}
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/aviso-privacidad"
+            className="text-xs font-semibold tracking-widest transition-colors hover:text-white/70 hover:underline"
           >
-            Documentation
+            AVISO DE PRIVACIDAD
           </a>
         </div>
-      </main>
-    </div>
+      </footer>
+    </>
   );
 }
