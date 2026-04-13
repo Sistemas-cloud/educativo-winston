@@ -50,22 +50,21 @@ function IconYoutube() {
 }
 
 /* ──────────────────── Portales de servicio ─────────────────────────────── */
-// 2026-04-09: Cada elemento tiene href vacío — completar con la URL real del portal.
-const PORTALES = [
+ const PORTALES = [
   {
     src: "/uploads/img/SERVICIOS/alta.png",
     label: "ALTA DE\nFACTURACIÓN",
-    href: "#",
+    href: "https://www.winston93.edu.mx/pagos/login.php",
   },
   {
     src: "/uploads/img/SERVICIOS/colegiaturas.png",
     label: "COLEGIATURAS",
-    href: "#",
+    href: "https://www.winston93.edu.mx/enlinea3/",
   },
   {
     src: "/uploads/img/SERVICIOS/usuario.png",
     label: "INSCRIPCIONES",
-    href: "#",
+    href: "https://www.winston93.edu.mx/admisiones/",
   },
   {
     src: "/uploads/img/SERVICIOS/tareas.png",
@@ -75,12 +74,12 @@ const PORTALES = [
   {
     src: "/uploads/img/SERVICIOS/servicios_internos.png",
     label: "SERVICIOS\nINTERNOS",
-    href: "#",
+    href: "https://www.winston93.edu.mx/news-lunch/",
   },
   {
     src: "/uploads/img/SERVICIOS/registro.png",
     label: "REGISTRO\nPARA EXAMEN",
-    href: "#",
+    href: "https://agendaw.vercel.app/",
   },
 ];
 
@@ -143,42 +142,58 @@ export default function ServiciosPage() {
 
         {/* ── Grid de portales ── */}
         <div className="mx-auto grid max-w-3xl grid-cols-3 gap-y-16 gap-x-6 md:gap-x-10 md:gap-y-20">
-          {PORTALES.map(({ src, label, href }, i) => (
-            <AnimateOnScroll key={label} animation="fadeUp" delay={i * 80}>
-              {/*
-               * 2026-04-09: Cada icono es un enlace con efecto hover de "mancha roja".
-               * La mancha es un div absoluto con border-radius orgánico que escala de 0 a 1
-               * en hover. El ícono pasa a blanco con mix-blend-mode para destacar sobre rojo.
-               */}
-              <a
-                href={href}
-                className="group flex flex-col items-center gap-3 outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                aria-label={label.replace("\n", " ")}
-              >
-                {/* Contenedor del ícono + mancha */}
-                <div className="relative flex h-[120px] w-[120px] items-center justify-center md:h-[150px] md:w-[150px]">
-                  {/* Mancha roja orgánica — escala en hover */}
-                  <span
-                    className="absolute inset-0 scale-0 rounded-[60%_40%_55%_45%/60%_45%_55%_40%] bg-[#e8192c] transition-transform duration-300 ease-out group-hover:scale-100"
-                    aria-hidden="true"
-                  />
-                  {/* Ícono PNG — se vuelve blanco sobre la mancha roja */}
-                  <Image
-                    src={src}
-                    alt={label.replace("\n", " ")}
-                    width={80}
-                    height={80}
-                    className="relative z-10 h-[72px] w-[72px] object-contain transition-all duration-300 md:h-[88px] md:w-[88px] group-hover:brightness-0 group-hover:invert"
-                  />
-                </div>
+          {PORTALES.map(({ src, label, href }, i) => {
+            const isPlaceholder = href === "#";
+            return (
+              <AnimateOnScroll key={label} animation="fadeUp" delay={i * 80}>
+                {/* 2026-04-13: En móvil se optimiza el tap para evitar que el hover bloquee la navegación.
+                    También se desactiva visualmente el portal sin URL real ("#"). */}
+                {/*
+                 * 2026-04-09: Cada icono es un enlace con efecto hover de "mancha roja".
+                 * La mancha es un div absoluto con border-radius orgánico que escala de 0 a 1
+                 * en hover. El ícono pasa a blanco con mix-blend-mode para destacar sobre rojo.
+                 */}
+                <a
+                  href={href}
+                  target={isPlaceholder ? undefined : "_blank"}
+                  rel={isPlaceholder ? undefined : "noopener noreferrer"}
+                  aria-disabled={isPlaceholder}
+                  className={[
+                    "group flex touch-manipulation flex-col items-center gap-3 select-none outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2",
+                    isPlaceholder ? "cursor-not-allowed opacity-70" : "cursor-pointer",
+                  ].join(" ")}
+                  aria-label={label.replace("\n", " ")}
+                  onClick={(event) => {
+                    if (isPlaceholder) {
+                      event.preventDefault();
+                    }
+                  }}
+                >
+                  {/* Contenedor del ícono + mancha */}
+                  <div className="relative flex h-[120px] w-[120px] items-center justify-center md:h-[150px] md:w-[150px]">
+                    {/* Mancha roja orgánica — escala en hover */}
+                    <span
+                      className="absolute inset-0 scale-0 rounded-[60%_40%_55%_45%/60%_45%_55%_40%] bg-[#e8192c] transition-transform duration-300 ease-out group-hover:scale-100 group-active:scale-100"
+                      aria-hidden="true"
+                    />
+                    {/* Ícono PNG — se vuelve blanco sobre la mancha roja */}
+                    <Image
+                      src={src}
+                      alt={label.replace("\n", " ")}
+                      width={80}
+                      height={80}
+                      className="relative z-10 h-[72px] w-[72px] object-contain transition-all duration-300 md:h-[88px] md:w-[88px] group-hover:brightness-0 group-hover:invert group-active:brightness-0 group-active:invert"
+                    />
+                  </div>
 
-                {/* Etiqueta */}
-                <span className="whitespace-pre-line text-center text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors duration-300 group-hover:text-[#e8192c] md:text-sm">
-                  {label}
-                </span>
-              </a>
-            </AnimateOnScroll>
-          ))}
+                  {/* Etiqueta */}
+                  <span className="whitespace-pre-line text-center text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors duration-300 group-hover:text-[#e8192c] group-active:text-[#e8192c] md:text-sm">
+                    {label}
+                  </span>
+                </a>
+              </AnimateOnScroll>
+            );
+          })}
         </div>
       </main>
 
