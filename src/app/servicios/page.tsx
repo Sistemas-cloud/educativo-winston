@@ -147,27 +147,23 @@ export default function ServiciosPage() {
             return (
               <AnimateOnScroll key={label} animation="fadeUp" delay={i * 80}>
                 {/* 2026-04-13: En móvil se optimiza el tap para evitar que el hover bloquee la navegación.
-                    También se desactiva visualmente el portal sin URL real ("#"). */}
+                    También se desactiva visualmente el portal sin URL real ("#"), sin handlers de cliente para compatibilidad SSR. */}
                 {/*
                  * 2026-04-09: Cada icono es un enlace con efecto hover de "mancha roja".
                  * La mancha es un div absoluto con border-radius orgánico que escala de 0 a 1
                  * en hover. El ícono pasa a blanco con mix-blend-mode para destacar sobre rojo.
                  */}
                 <a
-                  href={href}
+                  href={isPlaceholder ? undefined : href}
                   target={isPlaceholder ? undefined : "_blank"}
                   rel={isPlaceholder ? undefined : "noopener noreferrer"}
                   aria-disabled={isPlaceholder}
+                  tabIndex={isPlaceholder ? -1 : undefined}
                   className={[
                     "group flex touch-manipulation flex-col items-center gap-3 select-none outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2",
                     isPlaceholder ? "cursor-not-allowed opacity-70" : "cursor-pointer",
                   ].join(" ")}
                   aria-label={label.replace("\n", " ")}
-                  onClick={(event) => {
-                    if (isPlaceholder) {
-                      event.preventDefault();
-                    }
-                  }}
                 >
                   {/* Contenedor del ícono + mancha */}
                   <div className="relative flex h-[120px] w-[120px] items-center justify-center md:h-[150px] md:w-[150px]">
