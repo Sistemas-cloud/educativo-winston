@@ -69,7 +69,8 @@ export default function Home() {
       {/* ══════════════════════════ HERO ══════════════════════════════════ */}
       {/* 2026-04-08: Portada completa con HeroText centrado y más arriba.
           El banner NO tiene animación; solo el texto/botón usa HeroText. */}
-      <section className="relative w-full h-[56.25vw] max-h-[100vh] overflow-hidden md:h-[100vh]">
+      {/* 2026-04-13: En móvil se incrementa la altura del hero para separar logo, texto wave y CTA. */}
+      <section className="relative h-[76vh] min-h-[480px] w-full overflow-hidden sm:h-[72vh] md:h-[100vh]">
         <Image
           src="/uploads/img/INICIO/portada1.jpg"
           alt="Niño sonriente en el Instituto Educativo Winston"
