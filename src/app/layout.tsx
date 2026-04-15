@@ -1,5 +1,7 @@
-// 2026-04-08: Layout raÃ­z â€” se establece Poppins como tipografÃ­a global.
+// 2026-04-15: Layout raíz con dos familias tipográficas globales.
+//             Folks Bold se usa para títulos y Poppins para párrafos y texto base.
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 
@@ -10,10 +12,16 @@ const poppins = Poppins({
   display: "swap",
 });
 
+const folksBold = localFont({
+  src: "./fonts/Folks-Bold.ttf",
+  variable: "--font-folks-bold",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Instituto Educativo Winston",
   description:
-    "Raising Brighter Kids â€” Instituto Educativo Winston Churchill, Ciudad Madero, Tamaulipas. Certificados por Cambridge.",
+    "Raising Brighter Kids — Instituto Educativo Winston Churchill, Ciudad Madero, Tamaulipas. Certificados por Cambridge.",
 };
 
 export default function RootLayout({
@@ -22,7 +30,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${poppins.variable} h-full antialiased`}>
+    <html
+      lang="es"
+      className={`${poppins.variable} ${folksBold.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 :root {
   --background: #ffffff;
@@ -8,8 +8,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  /* 2026-04-08: Se alinea la familia tipográfica del sistema a Poppins. */
+  /* 2026-04-08: Se alinea la familia tipografica del sistema a Poppins. */
   --font-sans: var(--font-poppins);
+  /* 2026-04-15: Folks Bold como token de fuente para headings en Tailwind (font-heading). */
+  --font-heading: var(--font-folks-bold), sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
 }
@@ -24,12 +26,19 @@ body {
   font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   2026-04-08: Keyframes de animación para todo el sitio.
-   Los banners/imágenes de sección NO usan estas clases — solo íconos y textos.
-   ═══════════════════════════════════════════════════════════════════════════ */
+/* 2026-04-15: Folks Bold para todos los títulos del sitio.
+   Poppins se hereda del body para párrafos y texto base.
+   La variable --font-folks-bold la inyecta Next.js via localFont en layout.tsx. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-folks-bold), var(--font-poppins), sans-serif;
+}
 
-/* ── Efecto ola letra a letra (hero y loading screen) ── */
+/* �?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?�
+   2026-04-08: Keyframes de animación para todo el sitio.
+   Los banners/imágenes de sección NO usan estas clases �?? solo íconos y textos.
+   �?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?� */
+
+/* �??�?? Efecto ola letra a letra (hero y loading screen) �??�?? */
 @keyframes wave {
   0%,
   100% {
@@ -40,7 +49,7 @@ body {
   }
 }
 
-/* ── Entrada con fade hacia arriba (títulos y párrafos) ── */
+/* �??�?? Entrada con fade hacia arriba (títulos y párrafos) �??�?? */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -52,7 +61,7 @@ body {
   }
 }
 
-/* ── Rebote de entrada para íconos ── */
+/* �??�?? Rebote de entrada para íconos �??�?? */
 @keyframes bounceIn {
   0% {
     opacity: 0;
@@ -71,7 +80,7 @@ body {
   }
 }
 
-/* ── Entrada desde la izquierda para párrafos ── */
+/* �??�?? Entrada desde la izquierda para párrafos �??�?? */
 @keyframes slideLeft {
   from {
     opacity: 0;
@@ -83,7 +92,7 @@ body {
   }
 }
 
-/* ── Entrada desde la derecha para párrafos ── */
+/* �??�?? Entrada desde la derecha para párrafos �??�?? */
 @keyframes slideRight {
   from {
     opacity: 0;
@@ -95,7 +104,7 @@ body {
   }
 }
 
-/* ── Flotación suave para figuras del loading screen ── */
+/* �??�?? Flotación suave para figuras del loading screen �??�?? */
 @keyframes floatUp {
   0%,
   100% {
@@ -109,7 +118,7 @@ body {
   }
 }
 
-/* ── Giro lento para estrellas decorativas ── */
+/* �??�?? Giro lento para estrellas decorativas �??�?? */
 @keyframes spinSlow {
   from {
     transform: rotate(0deg);
@@ -119,7 +128,7 @@ body {
   }
 }
 
-/* ── Pulso de escala para el logo en el loading screen ── */
+/* �??�?? Pulso de escala para el logo en el loading screen �??�?? */
 @keyframes pulseBig {
   0%,
   100% {
@@ -130,7 +139,7 @@ body {
   }
 }
 
-/* ── Fade out para cuando desaparece el loading screen ── */
+/* �??�?? Fade out para cuando desaparece el loading screen �??�?? */
 @keyframes fadeOut {
   from {
     opacity: 1;
@@ -141,7 +150,7 @@ body {
   }
 }
 
-/* ── Rebote de los tres puntos del indicador de carga ── */
+/* �??�?? Rebote de los tres puntos del indicador de carga �??�?? */
 @keyframes dotBounce {
   0%,
   80%,
@@ -153,7 +162,7 @@ body {
   }
 }
 
-/* ── Slide down para el menú móvil ── */
+/* �??�?? Slide down para el menú móvil �??�?? */
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -165,9 +174,9 @@ body {
   }
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
+/* �?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?�
    Clases utilitarias de animación
-   ═══════════════════════════════════════════════════════════════════════════ */
+   �?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?��?� */
 
 .animate-wave {
   display: inline-block;
@@ -194,7 +203,7 @@ body {
   animation: slideDown 0.25s ease forwards;
 }
 
-/* Clases para AnimateOnScroll — estado inicial invisible */
+/* Clases para AnimateOnScroll �?? estado inicial invisible */
 .anim-hidden {
   opacity: 0;
 }
@@ -215,7 +224,7 @@ body {
   animation: slideRight 0.6s ease forwards;
 }
 
-/* ── Typewriter para el hero de Kinder ── */
+/* �??�?? Typewriter para el hero de Kinder �??�?? */
 /* 2026-04-08: Efecto de escritura a máquina, distinto al wave de la portada principal. */
 @keyframes typewriter {
   from {
@@ -290,7 +299,7 @@ body {
   animation: eventsTapeScroll 28s linear infinite;
 }
 
-/* 2026-04-08: Animación hero Maternal — pop-bounce letra por letra.
+/* 2026-04-08: Animación hero Maternal �?? pop-bounce letra por letra.
    Diferente a wave (inicio) y typewriter (kinder). */
 @keyframes maternalLetterPop {
   0%   { opacity: 0; transform: scale(0.3) translateY(10px); }
@@ -303,7 +312,7 @@ body {
   animation: maternalLetterPop 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
 }
 
-/* ── Telón de video "Conócenos" (2026-04-13) ────────────────────────────── */
+/* �??�?? Telón de video "Conócenos" (2026-04-13) �??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�??�?? */
 
 @keyframes telonDown {
   from { transform: translateY(-100%); }
