@@ -130,6 +130,7 @@ export default function Navbar() {
                   onMouseLeave={() => setOfertaOpen(false)}
                 >
                   <button
+                    type="button"
                     onClick={() => setOfertaOpen((v) => !v)}
                     className="flex items-center gap-1 text-gray-800 transition-colors hover:text-sky-500"
                     aria-haspopup="true"
@@ -139,19 +140,21 @@ export default function Navbar() {
                     <Chevron open={ofertaOpen} />
                   </button>
 
-                  {/* Panel dropdown */}
+                  {/* Panel dropdown: 2026-04-13 — pt-2 crea puente de hover entre botón y panel; mt-2 dejaba un hueco sin hit-area y onMouseLeave cerraba el menú al bajar al submenú. */}
                   {ofertaOpen && (
-                    <div className="animate-slide-down absolute left-1/2 top-full mt-2 w-40 -translate-x-1/2 overflow-hidden rounded-xl bg-white shadow-lg">
-                      {item.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          onClick={() => setOfertaOpen(false)}
-                          className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-sky-50 hover:text-sky-500"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+                    <div className="absolute left-1/2 top-full z-50 w-40 -translate-x-1/2 pt-2">
+                      <div className="animate-slide-down overflow-hidden rounded-xl bg-white shadow-lg">
+                        {item.children.map((child) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            onClick={() => setOfertaOpen(false)}
+                            className="block px-4 py-2.5 text-sm text-gray-700 transition-colors hover:bg-sky-50 hover:text-sky-500"
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -173,6 +176,7 @@ export default function Navbar() {
 
         {/* ── Botón hamburguesa (solo móvil) ── */}
         <button
+          type="button"
           className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg md:hidden"
           onClick={() => setMenuOpen((v) => !v)}
           aria-label={menuOpen ? "Cerrar menú" : "Abrir menú"}
@@ -194,7 +198,9 @@ export default function Navbar() {
           />
 
           <nav
-            className="animate-slide-down fixed inset-x-0 top-[72px] z-40 bg-white px-6 pb-8 pt-4 shadow-xl md:hidden"
+            // 2026-04-13: Menú móvil con altura por contenido (no pantalla completa),
+            // pero con max-height y scroll interno para evitar recortes en dispositivos bajos.
+            className="animate-slide-down fixed inset-x-0 top-[88px] z-40 max-h-[calc(100dvh-88px)] overflow-y-auto overscroll-contain bg-white px-6 pb-8 pt-4 shadow-xl md:hidden"
             role="dialog"
             aria-label="Menú de navegación"
           >
@@ -205,6 +211,7 @@ export default function Navbar() {
                   return (
                     <li key={item.label}>
                       <button
+                        type="button"
                         onClick={() => setMOfertaOpen((v) => !v)}
                         className="flex w-full items-center justify-between rounded-lg px-4 py-3 text-base font-semibold text-gray-800 transition-colors hover:bg-sky-50 hover:text-sky-500"
                       >

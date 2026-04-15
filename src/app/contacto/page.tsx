@@ -43,9 +43,11 @@ function IconInstagram() {
 }
 function IconYoutube() {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.94 1.96C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
-      <polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+    // 2026-04-13: Se unifica el estilo de YouTube a versión monocromática para mantener coherencia visual con los demás íconos del footer.
+    // 2026-04-13: Se incrementa tamaño óptico de YouTube (área y grosor) para igualarlo visualmente con los demás íconos.
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="4.5" width="20" height="15" rx="4" ry="4" />
+      <polygon points="9.5 8.6 16.8 12 9.5 15.4" fill="currentColor" stroke="currentColor" />
     </svg>
   );
 }
@@ -165,13 +167,21 @@ export default function ContactoPage() {
 
           <div className="flex items-center gap-5">
             {[
-              { label: "Facebook",  icon: <IconFacebook /> },
-              { label: "TikTok",    icon: <IconTiktok /> },
-              { label: "WhatsApp",  icon: <IconWhatsapp /> },
-              { label: "Instagram", icon: <IconInstagram /> },
-              { label: "YouTube",   icon: <IconYoutube /> },
-            ].map(({ label, icon }) => (
-              <a key={label} href="#" aria-label={label} className="transition-colors hover:text-white/70">
+              // 2026-04-13: Enlaces reales de redes sociales compartidos por el cliente.
+              { label: "Facebook",  icon: <IconFacebook />,  href: "https://www.tiktok.com/@imageneducativo" },
+              { label: "TikTok",    icon: <IconTiktok />,    href: "https://www.tiktok.com/@imageneducativo" },
+              { label: "WhatsApp",  icon: <IconWhatsapp />,  href: "#" },
+              { label: "Instagram", icon: <IconInstagram />, href: "https://www.instagram.com/educativowinston/" },
+              { label: "YouTube",   icon: <IconYoutube />,   href: "https://www.youtube.com/@institutowinstonchurchill5194" },
+            ].map(({ label, icon, href }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                className="transition-colors hover:text-white/70"
+                target={href === "#" ? undefined : "_blank"}
+                rel={href === "#" ? undefined : "noopener noreferrer"}
+              >
                 {icon}
               </a>
             ))}
