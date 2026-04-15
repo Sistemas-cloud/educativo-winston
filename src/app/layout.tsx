@@ -24,6 +24,35 @@ export const metadata: Metadata = {
     "Raising Brighter Kids ? Instituto Educativo Winston Churchill, Ciudad Madero, Tamaulipas. Certificados por Cambridge.",
 };
 
+// 2026-04-15: Reglas de especulacion para prefetch/prerender de rutas clave.
+//             prefetch "eager" activa cuando el enlace entra al viewport o el usuario
+//             mueve el cursor sobre el. prerender solo en rutas ligeras y estables.
+//             En navegadores sin soporte el script se ignora silenciosamente.
+const speculationRules = {
+  prefetch: [
+    {
+      source: "list",
+      urls: ["/kinder", "/maternal", "/servicios", "/contacto"],
+      eagerness: "moderate",
+    },
+    {
+      source: "document",
+      where: {
+        href_matches: "/*",
+        not: { href_matches: ["/api/*", "/_next/*"] },
+      },
+      eagerness: "conservative",
+    },
+  ],
+  prerender: [
+    {
+      source: "list",
+      urls: ["/kinder", "/maternal"],
+      eagerness: "conservative",
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -34,6 +63,13 @@ export default function RootLayout({
       lang="es"
       className={`${poppins.variable} ${folksBold.variable} h-full antialiased`}
     >
+      <head>
+        {/* Speculation Rules API: prefetch/prerender de rutas principales (2026-04-15) */}
+        <script
+          type="speculationrules"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(speculationRules) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
