@@ -1,11 +1,13 @@
 // 2026-04-08: Navbar interactivo con scroll sticky, transición de fondo,
 //             menú hamburguesa móvil y dropdown "Oferta educativa" con
 //             sub-opciones Kinder y Maternal en desktop y móvil.
+// 2026-04-13: "Conócenos" ahora dispara el telón de video en lugar de navegar.
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import VideoTelon from "./VideoTelon";
 
 /* ── Tipos ──────────────────────────────────────────────────────────────── */
 
@@ -17,9 +19,10 @@ type NavItem = {
   children?: NavChild[];
 };
 
+// 2026-04-13: "Conócenos" usa action:"video" en lugar de href para disparar el telón.
 const NAV_ITEMS: NavItem[] = [
   { label: "Inicio",             href: "/" },
-  { label: "Conócenos",          href: "/conocenos" },
+  { label: "Conócenos",          href: "#video-conocenos" },
   {
     label: "Oferta educativa",
     children: [
@@ -60,6 +63,8 @@ export default function Navbar() {
   const [menuOpen,    setMenuOpen]    = useState(false);
   const [ofertaOpen,  setOfertaOpen]  = useState(false); // desktop hover/click
   const [mOfertaOpen, setMOfertaOpen] = useState(false); // mobile accordion
+  // 2026-04-13: estado para el telón de video "Conócenos"
+  const [videoOpen,   setVideoOpen]   = useState(false);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -91,6 +96,7 @@ export default function Navbar() {
     setMenuOpen(false);
     setOfertaOpen(false);
     setMOfertaOpen(false);
+    setVideoOpen(false);
   };
 
   return (
@@ -161,6 +167,20 @@ export default function Navbar() {
               );
             }
 
+            /* 2026-04-13: "Conócenos" abre el telón de video en lugar de navegar */
+            if (item.href === "#video-conocenos") {
+              return (
+                <button
+                  key={item.label}
+                  type="button"
+                  onClick={() => setVideoOpen(true)}
+                  className="text-gray-800 transition-colors hover:text-sky-500"
+                >
+                  {item.label}
+                </button>
+              );
+            }
+
             /* Ítem simple */
             return (
               <Link
@@ -187,6 +207,10 @@ export default function Navbar() {
           <span className={["block h-0.5 w-6 rounded-full bg-gray-800 transition-all duration-300", menuOpen ? "-translate-y-2 -rotate-45" : ""].join(" ")} />
         </button>
       </header>
+
+      {/* ══ Telón de video "Conócenos" ═══════════════════════════════════ */}
+      {/* 2026-04-13: Se monta condicionalmente; VideoTelon maneja su propio desmontaje */}
+      <VideoTelon open={videoOpen} onClose={() => setVideoOpen(false)} />
 
       {/* ══ Panel de menú móvil ══════════════════════════════════════════ */}
       {menuOpen && (
@@ -234,6 +258,21 @@ export default function Navbar() {
                           ))}
                         </ul>
                       )}
+                    </li>
+                  );
+                }
+
+                /* 2026-04-13: "Conócenos" abre el telón de video en móvil */
+                if (item.href === "#video-conocenos") {
+                  return (
+                    <li key={item.label}>
+                      <button
+                        type="button"
+                        onClick={() => { setMenuOpen(false); setVideoOpen(true); }}
+                        className="block w-full rounded-lg px-4 py-3 text-left text-base font-semibold text-gray-800 transition-colors hover:bg-sky-50 hover:text-sky-500"
+                      >
+                        {item.label}
+                      </button>
                     </li>
                   );
                 }
