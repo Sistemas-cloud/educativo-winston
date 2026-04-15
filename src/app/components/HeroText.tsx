@@ -32,7 +32,8 @@ export default function HeroText() {
       <Link
         href="/contacto"
         // 2026-04-13: Botón más compacto en móvil para no tapar contenido visual.
-        className="inline-block rounded-full bg-sky-500 px-7 py-2.5 text-xs font-bold tracking-[0.2em] text-white shadow-xl transition-all duration-200 hover:scale-105 hover:bg-sky-400 focus-visible:outline-2 focus-visible:outline-white md:px-10 md:py-3 md:text-sm md:tracking-widest"
+        // 2026-04-13: Se unifica el CTA al azul institucional exacto #00D3F9.
+        className="inline-block rounded-full bg-[#00D3F9] px-7 py-2.5 text-xs font-bold tracking-[0.2em] text-white shadow-xl transition-all duration-200 hover:scale-105 hover:bg-[#00BFE0] focus-visible:outline-2 focus-visible:outline-white md:px-10 md:py-3 md:text-sm md:tracking-widest"
       >
         CONTÁCTANOS
       </Link>

@@ -108,7 +108,8 @@ export default function MaternalPage() {
 
             {/* Título + párrafos */}
             <AnimateOnScroll animation="fadeUp" delay={0}>
-              <h3 className="mb-3 text-base font-extrabold uppercase leading-snug tracking-wide text-sky-500 lg:text-xl">
+              {/* 2026-04-13: Se normaliza azul de títulos a tono exacto #00D3F9. */}
+              <h3 className="mb-3 text-base font-extrabold uppercase leading-snug tracking-wide text-[#00D3F9] lg:text-xl">
                 Una etapa clave que potencia<br />
                 su desarrollo bilingüe<br />
                 desde el inicio
@@ -128,7 +129,7 @@ export default function MaternalPage() {
 
             {/* Sección Impulsamos su */}
             <AnimateOnScroll animation="fadeUp" delay={200}>
-              <h4 className="mt-5 mb-4 text-center text-sm font-extrabold uppercase tracking-widest text-sky-500 lg:text-base">
+              <h4 className="mt-5 mb-4 text-center text-sm font-extrabold uppercase tracking-widest text-[#00D3F9] lg:text-base">
                 Impulsamos su:
               </h4>
               <div className="flex items-start justify-center gap-6">
@@ -172,7 +173,7 @@ export default function MaternalPage() {
         {/* Versión móvil: texto debajo de la imagen */}
         <div className="bg-white px-6 py-10 md:hidden">
           <AnimateOnScroll animation="fadeUp">
-            <h3 className="mb-3 text-sm font-extrabold uppercase leading-snug tracking-wide text-sky-500">
+            <h3 className="mb-3 text-sm font-extrabold uppercase leading-snug tracking-wide text-[#00D3F9]">
               Una etapa clave que potencia su desarrollo bilingüe desde el inicio
             </h3>
             <p className="mb-3 text-justify text-sm leading-relaxed text-gray-600">
@@ -189,7 +190,7 @@ export default function MaternalPage() {
           </AnimateOnScroll>
 
           <AnimateOnScroll animation="fadeUp" delay={150}>
-            <h4 className="mt-6 mb-4 text-center text-sm font-extrabold uppercase tracking-widest text-sky-500">
+            <h4 className="mt-6 mb-4 text-center text-sm font-extrabold uppercase tracking-widest text-[#00D3F9]">
               Impulsamos su:
             </h4>
             <div className="flex justify-center gap-8">

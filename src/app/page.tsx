@@ -104,15 +104,23 @@ export default function Home() {
 
             {/* Título con fadeUp */}
             <AnimateOnScroll animation="fadeUp" delay={0}>
-              <p className="text-2xl font-light leading-tight text-gray-500 lg:text-3xl">
+              {/* 2026-04-13: Se aplica tono institucional exacto #00D3F9 en títulos solicitados. */}
+              <p className="text-2xl font-light leading-tight text-[#00D3F9] lg:text-3xl">
                 Instituto
               </p>
-              <h2 className="mb-6 text-4xl font-bold leading-tight text-sky-500 lg:text-5xl">
+              <h2 className="mb-6 text-4xl font-bold leading-tight text-[#00D3F9] lg:text-5xl">
                 Educativo Winston
               </h2>
             </AnimateOnScroll>
 
-            <div className="grid grid-cols-2 gap-5 mb-5">
+            {/* 2026-04-13: Se agrega línea divisoria azul centrada entre ambas columnas
+                para replicar el diseño original del bloque "Instituto Educativo Winston". */}
+            <div className="relative mb-5 grid grid-cols-2 gap-5">
+              <span
+                // 2026-04-13: Se incrementa el grosor de la línea para mejorar legibilidad visual.
+                className="pointer-events-none absolute left-1/2 top-1 bottom-1 w-[3px] -translate-x-1/2 bg-[#00D3F9]"
+                aria-hidden="true"
+              />
               {/* Ícono izquierdo con bounceIn */}
               <AnimateOnScroll animation="bounceIn" delay={100}>
                 <Image
@@ -164,7 +172,7 @@ export default function Home() {
         <div className="bg-white px-6 py-10 md:hidden">
           <AnimateOnScroll animation="fadeUp">
             <p className="text-2xl font-light leading-tight text-gray-500">Instituto</p>
-            <h2 className="mb-6 text-4xl font-bold leading-tight text-sky-500">
+            <h2 className="mb-6 text-4xl font-bold leading-tight text-[#00D3F9]">
               Educativo Winston
             </h2>
           </AnimateOnScroll>
