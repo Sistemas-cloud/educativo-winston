@@ -1,5 +1,5 @@
-// 2026-04-15: Layout raíz con dos familias tipográficas globales.
-//             Folks Bold se usa para títulos y Poppins para párrafos y texto base.
+// 2026-04-15: Layout raiz con dos familias tipograficas globales.
+//             Folks Bold se usa para titulos y Poppins para parrafos y texto base.
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Poppins } from "next/font/google";
@@ -21,7 +21,7 @@ const folksBold = localFont({
 export const metadata: Metadata = {
   title: "Instituto Educativo Winston",
   description:
-    "Raising Brighter Kids — Instituto Educativo Winston Churchill, Ciudad Madero, Tamaulipas. Certificados por Cambridge.",
+    "Raising Brighter Kids ? Instituto Educativo Winston Churchill, Ciudad Madero, Tamaulipas. Certificados por Cambridge.",
 };
 
 export default function RootLayout({
