@@ -33,8 +33,9 @@ export default function EventsCarousel() {
         .kinder-tape-track {
           display: flex;
           width: max-content;
-          /* 2026-04-08: Se reduce velocidad del desplazamiento para lectura más tranquila. */
-          animation: kinder-tape-scroll 36s linear infinite;
+          /* 2026-04-16: Se vuelve a reducir la velocidad del desplazamiento
+             para una lectura visual mas calmada del slider en kinder. */
+          animation: kinder-tape-scroll 54s linear infinite;
           will-change: transform;
         }
       `}</style>
