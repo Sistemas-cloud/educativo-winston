@@ -62,9 +62,10 @@ export default function ContactoPage() {
 
       {/* ══════════════════════ HERO ══════════════════════════════════════ */}
       {/* 2026-04-09: Banner de contacto con overlay cian semitransparente. */}
+      {/* 2026-04-16: Se corrige la imagen del hero para usar el banner oficial de CONTACTANOS. */}
       <section className="relative h-[38vw] min-h-[200px] max-h-[320px] w-full overflow-hidden">
         <Image
-          src="/uploads/img/INICIO/portada1.jpg"
+          src="/uploads/img/CONTACTANOS/banner.jpg"
           alt="Instituto Educativo Winston Churchill"
           fill
           priority
@@ -170,7 +171,7 @@ export default function ContactoPage() {
               // 2026-04-13: Enlaces reales de redes sociales compartidos por el cliente.
               { label: "Facebook",  icon: <IconFacebook />,  href: "https://www.tiktok.com/@imageneducativo" },
               { label: "TikTok",    icon: <IconTiktok />,    href: "https://www.tiktok.com/@imageneducativo" },
-              { label: "WhatsApp",  icon: <IconWhatsapp />,  href: "#" },
+              { label: "WhatsApp",  icon: <IconWhatsapp />,  href: "https://wa.me/528333474507" },
               { label: "Instagram", icon: <IconInstagram />, href: "https://www.instagram.com/educativowinston/" },
               { label: "YouTube",   icon: <IconYoutube />,   href: "https://www.youtube.com/@institutowinstonchurchill5194" },
             ].map(({ label, icon, href }) => (

@@ -221,7 +221,7 @@ export default function ServiciosPage() {
               // 2026-04-13: Enlaces reales de redes sociales compartidos por el cliente.
               { label: "Facebook",  icon: <IconFacebook />,  href: "https://www.tiktok.com/@imageneducativo" },
               { label: "TikTok",    icon: <IconTiktok />,    href: "https://www.tiktok.com/@imageneducativo" },
-              { label: "WhatsApp",  icon: <IconWhatsapp />,  href: "#" },
+              { label: "WhatsApp",  icon: <IconWhatsapp />,  href: "https://wa.me/528333474507" },
               { label: "Instagram", icon: <IconInstagram />, href: "https://www.instagram.com/educativowinston/" },
               { label: "YouTube",   icon: <IconYoutube />,   href: "https://www.youtube.com/@institutowinstonchurchill5194" },
             ].map(({ label, icon, href }) => (
