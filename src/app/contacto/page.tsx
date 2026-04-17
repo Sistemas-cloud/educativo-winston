@@ -136,7 +136,8 @@ export default function ContactoPage() {
                   <address className="not-italic leading-relaxed">
                     C. 2 #209, Jardín 20 de Noviembre<br />
                     89440 Cd. Madero, Tamaulipas<br />
-                    Tel. 833 362 48 19
+                    {/* 2026-04-17: Número actualizado. */}
+                    Tel. 833 347 45 07
                   </address>
                 </div>
               </div>
@@ -162,7 +163,8 @@ export default function ContactoPage() {
               <p className="mb-0.5 text-sm font-bold tracking-wider">RAISING BRIGHTER KIDS</p>
               <p>CALLE 2 #309 COL. JARDÍN 20 DE NOVIEMBRE</p>
               <p>CD. MADERO, TAMAULIPAS.</p>
-              <p>TEL 833 362 48 19</p>
+              {/* 2026-04-17: Número telefónico actualizado por el cliente. */}
+              <p>TEL 833 347 45 07</p>
             </div>
           </div>
 

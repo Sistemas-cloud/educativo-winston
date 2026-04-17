@@ -1,5 +1,9 @@
 // 2026-04-08: Componente cliente para el texto hero con efecto ola letra a letra.
 //             Las letras suben y bajan con delays escalonados creando una animación wave.
+// 2026-04-17: Título corregido para mostrarse siempre en una sola línea en cualquier
+//             dispositivo: se elimina flex-wrap y se usa clamp con escala agresiva basada
+//             en vw para que los 25 caracteres quepan desde 320px hasta pantallas 4K.
+//             Se agrega texto introductorio al proceso de admisión sobre el botón CTA.
 "use client";
 
 import Link from "next/link";
@@ -10,16 +14,20 @@ export default function HeroText() {
   return (
     // 2026-04-13: Ajuste responsive del hero para evitar empalmes con el navbar/logo en móvil.
     <div className="absolute inset-x-0 bottom-[16%] flex flex-col items-center gap-4 px-4 text-center sm:bottom-[20%] md:bottom-[30%] md:gap-6">
-      {/* Título con efecto wave letra a letra */}
-      <h1 className="mx-auto flex max-w-[min(92vw,820px)] flex-wrap justify-center gap-x-[0.03em] leading-[1.05]" aria-label={TEXT}>
+      {/* Título con efecto wave letra a letra.
+          2026-04-17: flex-nowrap (sin flex-wrap) + clamp agresivo para una sola línea.
+          clamp(0.78rem, 4.1vw, 5rem): en 320px → ~13px/char → cabe en ~320px; en 1440px+ → 80px. */}
+      <h1
+        className="mx-auto flex flex-nowrap justify-center gap-x-[0.03em] leading-[1.05] overflow-visible"
+        aria-label={TEXT}
+      >
         {TEXT.split("").map((char, i) => (
           <span
             key={i}
             aria-hidden="true"
-            className="animate-wave inline-block text-[clamp(1.55rem,7.3vw,2.35rem)] font-extrabold text-white drop-shadow-lg md:text-6xl lg:text-7xl"
+            className="animate-wave inline-block text-[clamp(0.78rem,4.1vw,5rem)] font-extrabold text-white drop-shadow-lg"
             style={{
               animationDelay: `${i * 55}ms`,
-              // Los espacios no necesitan animación visible
               minWidth: char === " " ? "0.4em" : undefined,
             }}
           >
@@ -27,6 +35,11 @@ export default function HeroText() {
           </span>
         ))}
       </h1>
+
+      {/* 2026-04-17: Texto introductorio al proceso de admisión. */}
+      <p className="text-[clamp(0.65rem,2vw,1rem)] font-medium tracking-wide text-white/90 drop-shadow">
+        Comienza tu proceso de admisión en el siguiente botón
+      </p>
 
       {/* Botón CTA */}
       <Link

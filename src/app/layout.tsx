@@ -1,9 +1,11 @@
 // 2026-04-15: Layout raiz con dos familias tipograficas globales.
 //             Folks Bold se usa para titulos y Poppins para parrafos y texto base.
+// 2026-04-17: Se agrega WhatsAppButton flotante para que aparezca en todas las páginas.
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -70,7 +72,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(speculationRules) }}
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        {/* 2026-04-17: Botón flotante de WhatsApp presente en todo el sitio. */}
+        <WhatsAppButton />
+      </body>
     </html>
   );
 }

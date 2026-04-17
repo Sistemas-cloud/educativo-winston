@@ -1,4 +1,4 @@
-// 2026-04-09: Página de Servicios en Línea del Instituto Educativo Winston Churchill.
+﻿// 2026-04-09: Página de Servicios en Línea del Instituto Educativo Winston Churchill.
 //             Seis portales de acceso con efecto hover de mancha roja orgánica.
 //             Las URLs de cada portal deben completarse manualmente.
 import Image from "next/image";
@@ -212,7 +212,8 @@ export default function ServiciosPage() {
               <p className="mb-0.5 text-sm font-bold tracking-wider">RAISING BRIGHTER KIDS</p>
               <p>CALLE 2 #309 COL. JARDÍN 20 DE NOVIEMBRE</p>
               <p>CD. MADERO, TAMAULIPAS.</p>
-              <p>TEL 833 362 48 19</p>
+              {/* 2026-04-17: Número telefónico actualizado por el cliente. */}
+              <p>TEL 833 347 45 07</p>
             </div>
           </div>
 
