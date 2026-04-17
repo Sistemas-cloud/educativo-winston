@@ -36,19 +36,15 @@ export default function HeroText() {
         ))}
       </h1>
 
-      {/* 2026-04-17: Texto introductorio al proceso de admisión. */}
-      <p className="text-[clamp(0.65rem,2vw,1rem)] font-medium tracking-wide text-white/90 drop-shadow">
-        Comienza tu proceso de admisión en el siguiente botón
-      </p>
-
       {/* Botón CTA */}
+      {/* 2026-04-17: Texto del botón cambiado a "Comienza tu proceso de inscripción" según indicación del cliente. */}
       <Link
         href="/contacto"
         // 2026-04-13: Botón más compacto en móvil para no tapar contenido visual.
         // 2026-04-13: Se unifica el CTA al azul institucional exacto #00D3F9.
         className="inline-block rounded-full bg-[#00D3F9] px-7 py-2.5 text-xs font-bold tracking-[0.2em] text-white shadow-xl transition-all duration-200 hover:scale-105 hover:bg-[#00BFE0] focus-visible:outline-2 focus-visible:outline-white md:px-10 md:py-3 md:text-sm md:tracking-widest"
       >
-        CONTÁCTANOS
+        COMIENZA TU PROCESO DE INSCRIPCIÓN
       </Link>
     </div>
   );
