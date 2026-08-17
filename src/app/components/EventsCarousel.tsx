@@ -2,19 +2,20 @@
 // 2026-04-08: Efecto cinta continua — keyframe definido con <style> HTML nativo
 //             para garantizar que la animación funcione en Client Components sin
 //             depender de globals.css ni de styled-jsx.
+// 2026-08-17: Alts descriptivos para SEO y accesibilidad.
 "use client";
 
 import Image from "next/image";
 
 const EVENTS = [
-  { src: "/uploads/img/KINDER/EVENTOS/DANCE.jpg",       alt: "Dance" },
-  { src: "/uploads/img/KINDER/EVENTOS/DIA-MUERTOS.jpg", alt: "Día de Muertos" },
-  { src: "/uploads/img/KINDER/EVENTOS/HALLOWEEN.jpg",   alt: "Halloween" },
-  { src: "/uploads/img/KINDER/EVENTOS/OLYIMPIC.jpg",    alt: "Olimpiadas" },
-  { src: "/uploads/img/KINDER/EVENTOS/PRIMAVERA.jpg",   alt: "Primavera" },
-  { src: "/uploads/img/KINDER/EVENTOS/SR-PATRICK.jpg",  alt: "St. Patrick" },
-  { src: "/uploads/img/KINDER/EVENTOS/TECHNO.jpg",      alt: "Techno" },
-  { src: "/uploads/img/KINDER/EVENTOS/VIEJADA.jpg",     alt: "Viejada" },
+  { src: "/uploads/img/KINDER/EVENTOS/DANCE.jpg",       alt: "Evento de danza en Kínder Winston" },
+  { src: "/uploads/img/KINDER/EVENTOS/DIA-MUERTOS.jpg", alt: "Celebración de Día de Muertos en Kínder Winston" },
+  { src: "/uploads/img/KINDER/EVENTOS/HALLOWEEN.jpg",   alt: "Halloween en Kínder Winston" },
+  { src: "/uploads/img/KINDER/EVENTOS/OLYIMPIC.jpg",    alt: "Olimpiadas escolares del Kínder Winston" },
+  { src: "/uploads/img/KINDER/EVENTOS/PRIMAVERA.jpg",   alt: "Festival de primavera en Kínder Winston" },
+  { src: "/uploads/img/KINDER/EVENTOS/SR-PATRICK.jpg",  alt: "Celebración de St. Patrick en Kínder Winston" },
+  { src: "/uploads/img/KINDER/EVENTOS/TECHNO.jpg",      alt: "Evento Techno en Kínder Winston" },
+  { src: "/uploads/img/KINDER/EVENTOS/VIEJADA.jpg",     alt: "Viejada tradicional en Kínder Winston" },
 ];
 
 // Duplicamos para el loop infinito sin saltos

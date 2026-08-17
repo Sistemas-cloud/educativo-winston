@@ -1,11 +1,21 @@
 // 2026-04-15: Layout raiz con dos familias tipograficas globales.
 //             Folks Bold se usa para titulos y Poppins para parrafos y texto base.
 // 2026-04-17: Se agrega WhatsAppButton flotante para que aparezca en todas las páginas.
+// 2026-08-17: Metadata canónica, Open Graph, Twitter Cards y JSON-LD para SEO.
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import WhatsAppButton from "./components/WhatsAppButton";
+import { getOrganizationSchema } from "@/lib/seo/organization-schema";
+import {
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_OG_IMAGE_PATH,
+  SITE_URL,
+} from "@/lib/seo/site-config";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -20,16 +30,52 @@ const folksBold = localFont({
   display: "swap",
 });
 
+const defaultTitle =
+  "Instituto Educativo Winston | Kínder y Maternal bilingüe en Cd. Madero";
+
 export const metadata: Metadata = {
-  title: "Instituto Educativo Winston",
-  description:
-    "Raising Brighter Kids ? Instituto Educativo Winston Churchill, Ciudad Madero, Tamaulipas. Certificados por Cambridge.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: defaultTitle,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  keywords: [...SITE_KEYWORDS],
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: SITE_LOCALE,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: defaultTitle,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: SITE_OG_IMAGE_PATH,
+        width: 1200,
+        height: 630,
+        alt: "Niños del Instituto Educativo Winston en Ciudad Madero",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: defaultTitle,
+    description: SITE_DESCRIPTION,
+    images: [SITE_OG_IMAGE_PATH],
+  },
 };
 
 // 2026-04-15: Reglas de especulacion para prefetch/prerender de rutas clave.
-//             prefetch "eager" activa cuando el enlace entra al viewport o el usuario
-//             mueve el cursor sobre el. prerender solo en rutas ligeras y estables.
-//             En navegadores sin soporte el script se ignora silenciosamente.
 const speculationRules = {
   prefetch: [
     {
@@ -60,6 +106,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const organizationSchema = getOrganizationSchema();
+
   return (
     <html
       lang="es"
@@ -70,6 +118,13 @@ export default function RootLayout({
         <script
           type="speculationrules"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(speculationRules) }}
+        />
+        {/* 2026-08-17: Schema.org School para Google. */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
         />
       </head>
       <body className="min-h-full flex flex-col">

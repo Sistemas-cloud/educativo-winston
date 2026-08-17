@@ -7,10 +7,10 @@ import Image from "next/image";
 import { useState } from "react";
 
 const PHOTOS = [
-  { src: "/uploads/img/MATERNAL/GALERIA/DANCE.jpg",    alt: "Dance"   },
+  { src: "/uploads/img/MATERNAL/GALERIA/DANCE.jpg",    alt: "Clase de danza en Maternal Winston"   },
   // 2026-04-08: Nombre del archivo original tiene typo "HALLOWWEN" — se usa tal cual.
-  { src: "/uploads/img/MATERNAL/GALERIA/HALLOWWEN.jpg", alt: "Halloween" },
-  { src: "/uploads/img/MATERNAL/GALERIA/RACING.jpg",   alt: "Racing"  },
+  { src: "/uploads/img/MATERNAL/GALERIA/HALLOWWEN.jpg", alt: "Halloween en Maternal Winston" },
+  { src: "/uploads/img/MATERNAL/GALERIA/RACING.jpg",   alt: "Actividad Racing en Maternal Winston"  },
 ];
 
 export default function MaternalGallery() {
