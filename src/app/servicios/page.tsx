@@ -1,7 +1,7 @@
 ﻿// 2026-04-09: Página de Servicios en Línea del Instituto Educativo Winston Churchill.
 //             Seis portales de acceso con efecto hover de mancha roja orgánica.
-//             Las URLs de cada portal deben completarse manualmente.
 // 2026-08-17: Metadata unica de /servicios y footer compartido.
+// 2026-08-17: URLs alineadas a winston93.edu.mx/servicios-en-linea (Ozymandias).
 import type { Metadata } from "next";
 import Image from "next/image";
 
@@ -9,6 +9,7 @@ import AnimateOnScroll from "../components/AnimateOnScroll";
 import Footer from "../components/Footer";
 import LoadingScreen from "../components/LoadingScreen";
 import Navbar from "../components/Navbar";
+import { SITE_PORTALS } from "@/lib/seo/site-config";
 
 export const metadata: Metadata = {
   title: "Servicios en línea para familias",
@@ -30,36 +31,45 @@ export const metadata: Metadata = {
 };
 
 /* ──────────────────── Portales de servicio ─────────────────────────────── */
- const PORTALES = [
+
+type PortalItem = {
+  src: string;
+  label: string;
+  href?: string;
+  /** Sin enlace activo (en construccion o pendiente de URL). */
+  disabled?: boolean;
+};
+
+const PORTALES: PortalItem[] = [
   {
     src: "/uploads/img/SERVICIOS/alta.png",
     label: "ALTA DE\nFACTURACIÓN",
-    href: "https://www.winston93.edu.mx/pagos/login.php",
+    href: SITE_PORTALS.admin,
   },
   {
     src: "/uploads/img/SERVICIOS/colegiaturas.png",
     label: "COLEGIATURAS",
-    href: "https://www.winston93.edu.mx/enlinea3/",
+    href: SITE_PORTALS.admin,
   },
   {
     src: "/uploads/img/SERVICIOS/usuario.png",
     label: "INSCRIPCIONES",
-    href: "https://www.winston93.edu.mx/admisiones/",
+    href: SITE_PORTALS.admin,
   },
   {
     src: "/uploads/img/SERVICIOS/tareas.png",
     label: "TAREAS\nEN LÍNEA",
-    href: "#",
+    disabled: true,
   },
   {
     src: "/uploads/img/SERVICIOS/servicios_internos.png",
     label: "SERVICIOS\nINTERNOS",
-    href: "https://www.winston93.edu.mx/news-lunch/",
+    disabled: true,
   },
   {
     src: "/uploads/img/SERVICIOS/registro.png",
     label: "REGISTRO\nPARA EXAMEN",
-    href: "https://agendaw.vercel.app/",
+    href: SITE_PORTALS.examSchedule,
   },
 ];
 
@@ -122,37 +132,33 @@ export default function ServiciosPage() {
 
         {/* ── Grid de portales ── */}
         <div className="mx-auto grid max-w-3xl grid-cols-3 gap-y-16 gap-x-6 md:gap-x-10 md:gap-y-20">
-          {PORTALES.map(({ src, label, href }, i) => {
-            const isPlaceholder = href === "#";
+          {PORTALES.map(({ src, label, href, disabled }, i) => {
+            const isInactive = disabled || !href;
             return (
               <AnimateOnScroll key={label} animation="fadeUp" delay={i * 80}>
                 {/* 2026-04-13: En móvil se optimiza el tap para evitar que el hover bloquee la navegación.
-                    También se desactiva visualmente el portal sin URL real ("#"), sin handlers de cliente para compatibilidad SSR. */}
-                {/*
-                 * 2026-04-09: Cada icono es un enlace con efecto hover de "mancha roja".
-                 * La mancha es un div absoluto con border-radius orgánico que escala de 0 a 1
-                 * en hover. El ícono pasa a blanco con mix-blend-mode para destacar sobre rojo.
-                 */}
+                    Portales disabled: sin href (paridad winston93 — Tareas / Servicios internos). */}
                 <a
-                  href={isPlaceholder ? undefined : href}
-                  target={isPlaceholder ? undefined : "_blank"}
-                  rel={isPlaceholder ? undefined : "noopener noreferrer"}
-                  aria-disabled={isPlaceholder}
-                  tabIndex={isPlaceholder ? -1 : undefined}
+                  href={isInactive ? undefined : href}
+                  target={isInactive ? undefined : "_blank"}
+                  rel={isInactive ? undefined : "noopener noreferrer"}
+                  aria-disabled={isInactive}
+                  tabIndex={isInactive ? -1 : undefined}
                   className={[
                     "group flex touch-manipulation flex-col items-center gap-3 select-none outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2",
-                    isPlaceholder ? "cursor-not-allowed opacity-70" : "cursor-pointer",
+                    isInactive ? "cursor-not-allowed opacity-70" : "cursor-pointer",
                   ].join(" ")}
-                  aria-label={label.replace("\n", " ")}
+                  aria-label={
+                    isInactive
+                      ? `${label.replace("\n", " ")} — en construcción`
+                      : label.replace("\n", " ")
+                  }
                 >
-                  {/* Contenedor del ícono + mancha */}
                   <div className="relative flex h-[120px] w-[120px] items-center justify-center md:h-[150px] md:w-[150px]">
-                    {/* Mancha roja orgánica — escala en hover */}
                     <span
                       className="absolute inset-0 scale-0 rounded-[60%_40%_55%_45%/60%_45%_55%_40%] bg-[#e8192c] transition-transform duration-300 ease-out group-hover:scale-100 group-active:scale-100"
                       aria-hidden="true"
                     />
-                    {/* Ícono PNG — se vuelve blanco sobre la mancha roja */}
                     <Image
                       src={src}
                       alt={label.replace("\n", " ")}
@@ -162,7 +168,6 @@ export default function ServiciosPage() {
                     />
                   </div>
 
-                  {/* Etiqueta */}
                   <span className="whitespace-pre-line text-center text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors duration-300 group-hover:text-[#e8192c] group-active:text-[#e8192c] md:text-sm">
                     {label}
                   </span>
@@ -173,7 +178,6 @@ export default function ServiciosPage() {
         </div>
       </main>
 
-      {/* 2026-08-17: Footer extraido a componente compartido. */}
       <Footer />
     </>
   );

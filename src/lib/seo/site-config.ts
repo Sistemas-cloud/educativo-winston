@@ -3,6 +3,9 @@
 
 export const SITE_URL = "https://www.winstonkinder.edu.mx" as const;
 
+// 2026-08-18: Alias de produccion Vercel — no indexar; redirigir al canonical.
+export const SITE_VERCEL_HOST = "educativo-winston.vercel.app" as const;
+
 export const SITE_NAME = "Instituto Educativo Winston" as const;
 
 export const SITE_TAGLINE = "Raising Brighter Kids" as const;
@@ -58,6 +61,13 @@ export const SITE_SOCIAL_LINKS = [
   SITE_SOCIAL.youtube,
   SITE_SOCIAL.whatsapp,
 ] as const;
+
+// 2026-08-17: Portales en linea — paridad con winston93.edu.mx/servicios-en-linea.
+export const SITE_PORTALS = {
+  admin: "https://servicios-admin.vercel.app/",
+  examSchedule: "https://agendaw.vercel.app/",
+  entregaPie: "https://ssiw.vercel.app/login",
+} as const;
 
 export function absoluteUrl(path: string = "/"): string {
   if (path.startsWith("http://") || path.startsWith("https://")) {

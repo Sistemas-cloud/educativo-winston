@@ -1,0 +1,16 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "educativo-winston.vercel.app" }],
+      "destination": "https://www.winstonkinder.edu.mx",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "educativo-winston.vercel.app" }],
+      "destination": "https://www.winstonkinder.edu.mx/:path*",
+      "permanent": true
+    }
+  ]
+}
