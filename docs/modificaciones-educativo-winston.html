@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Modificaciones — educativo-winston</title>
+  <style>
+    @page { size: A4; margin: 18mm 16mm; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      color: #2A2F33;
+      line-height: 1.55;
+      font-size: 11pt;
+    }
+    h1 {
+      color: #00B8D9;
+      font-size: 22pt;
+      margin: 0 0 6px;
+      line-height: 1.2;
+    }
+    h2 {
+      color: #00B8D9;
+      font-size: 14pt;
+      margin: 22px 0 8px;
+      border-bottom: 2px solid #E8F9FC;
+      padding-bottom: 4px;
+    }
+    h3 {
+      color: #2A2F33;
+      font-size: 12pt;
+      margin: 14px 0 6px;
+    }
+    .meta {
+      color: #5C656C;
+      font-size: 10pt;
+      margin-bottom: 18px;
+    }
+    .badge {
+      display: inline-block;
+      background: #E8F9FC;
+      color: #00B8D9;
+      font-size: 9pt;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      margin-right: 6px;
+    }
+    ul { margin: 6px 0 10px 18px; padding: 0; }
+    li { margin-bottom: 4px; }
+    .box {
+      background: #FFFBFA;
+      border: 1px solid #E8EEF0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin: 10px 0 14px;
+    }
+    .box strong { color: #e8192c; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10pt;
+      margin: 8px 0 14px;
+    }
+    th, td {
+      border: 1px solid #E0E6E9;
+      padding: 7px 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #E8F9FC; color: #2A2F33; }
+    .muted { color: #5C656C; font-size: 10pt; }
+    .footer-note {
+      margin-top: 28px;
+      padding-top: 10px;
+      border-top: 1px solid #E0E6E9;
+      font-size: 9.5pt;
+      color: #8A9399;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Informe de modificaciones<br />educativo-winston</h1>
+  <p class="meta">
+    <span class="badge">Portal</span> Instituto Educativo Winston · winstonkinder.edu.mx<br />
+    <span class="badge">Repo</span> educativo-winston<br />
+    <span class="badge">Fecha del informe</span> 24 de agosto de 2026<br />
+    <span class="badge">Estado</span> Cambios locales (working tree) — pendientes de commit/deploy
+  </p>
+
+  <div class="box">
+    <strong>Resumen ejecutivo.</strong>
+    Se rediseñó la experiencia pública del portal (home, Maternal, Kínder, contacto, servicios y footer)
+    bajo la dirección visual <em>“Cuna de confianza”</em>: atmósfera cálida para madres primerizas,
+    naming oficial sin “Churchill”, más aire entre secciones, y correcciones técnicas para desarrollo
+    en red local y analytics.
+  </div>
+
+  <h2>1. Identidad y naming (obligatorio)</h2>
+  <ul>
+    <li>Uso exclusivo del nombre <strong>Instituto Educativo Winston</strong> en textos visibles, metadata, schema y correos del formulario.</li>
+    <li>Prohibido en copy: “Winston Churchill”, “Colegio Winston Churchill”, “Instituto Winston Churchill”.</li>
+    <li>Niveles del portal: solo <strong>Maternal</strong> y <strong>Kínder</strong>.</li>
+    <li>Archivos tocados: <code>site-config.ts</code>, <code>organization-schema.ts</code>, páginas y acciones de contacto.</li>
+  </ul>
+
+  <h2>2. Página de inicio (/)</h2>
+  <h3>Qué se buscaba</h3>
+  <p class="muted">Combinar el impacto de un hero fuerte (estilo ICT) con secciones escaneables (estilo Columbia), sin perder la identidad cian/rojo Winston.</p>
+  <h3>Qué se hizo</h3>
+  <ul>
+    <li><strong>Hero:</strong> foto full-bleed, gradiente legible, wave “Raising Brighter Kids”, subtítulo correcto y CTA a admisión.</li>
+    <li><strong>Bloque Instituto:</strong> se restauró el arte original (<code>bloque1.png</code>) con niña, doodles y dos columnas de texto + íconos.</li>
+    <li><strong>Oferta:</strong> cards de Maternal y Kínder con imagen, texto y “Conocer más”.</li>
+    <li><strong>Áreas de desarrollo:</strong> grid nuevo de 6 áreas (<code>HomeDevelopmentCards.tsx</code>).</li>
+    <li><strong>Cambridge + CTA final:</strong> franja Cambridge y cierre con Agendar / WhatsApp.</li>
+    <li><strong>Ambiente continuo:</strong> ondas y doodles compartidos (<code>HomeAmbient.tsx</code>) para evitar cortes bruscos entre secciones.</li>
+    <li>Transición suave en la franja roja de oferta (máscara + velo + onda blanca).</li>
+  </ul>
+  <h3>Archivos</h3>
+  <ul>
+    <li><code>src/app/page.tsx</code>, <code>HeroText.tsx</code></li>
+    <li><code>HomeAmbient.tsx</code>, <code>HomeDevelopmentCards.tsx</code> (nuevos)</li>
+  </ul>
+
+  <h2>3. Maternal y Kínder (rediseño “Cuna de confianza”)</h2>
+  <h3>Concepto aprobado</h3>
+  <p class="muted">Páginas premium, calmadas y amorosas: mucho aire, tipografía suave, fotos reales, personalidad Winston (cian/rojo contenido), sin copiar marca ajena.</p>
+  <h3>Estructura típica de cada nivel</h3>
+  <ol>
+    <li>Hero emocional (foto + título animado + frase + CTA “Agendar una visita”).</li>
+    <li>Intro humana (2 párrafos máximo).</li>
+    <li>Pilares del enfoque (3 bloques claros).</li>
+    <li>Banner artístico Winston con <strong>texto contextual</strong> en el espacio blanco del diseño (<code>CradleArtStory</code>).</li>
+    <li>Ambiente y seguridad con <strong>fotografía real</strong> (no recortes 50% blanco / 50% foto).</li>
+    <li>Acordeón de desarrollo (Maternal) o talleres (Kínder).</li>
+    <li>Nota de admisiones sin inventar horarios/edades.</li>
+    <li>Galería / eventos + cierre emocional + CTA.</li>
+  </ol>
+  <h3>Diferencia Maternal vs Kínder</h3>
+  <table>
+    <thead>
+      <tr><th>Aspecto</th><th>Maternal</th><th>Kínder</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Promesa emocional</td>
+        <td>Ternura, primer vínculo, seguridad</td>
+        <td>Autonomía, voz propia, confianza</td>
+      </tr>
+      <tr>
+        <td>Hero (frase)</td>
+        <td>“Los primeros pasos, con amor y seguridad”</td>
+        <td>“Crece con confianza, en dos idiomas”</td>
+      </tr>
+      <tr>
+        <td>Bloque destacado</td>
+        <td>Áreas: pensamiento, creatividad, seguridad emocional</td>
+        <td>Talleres: Hip Hop, Fútbol, Yoga</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>Archivos</h3>
+  <ul>
+    <li><code>src/app/maternal/page.tsx</code>, <code>src/app/kinder/page.tsx</code></li>
+    <li><code>MaternalHeroText.tsx</code>, <code>KinderHeroText.tsx</code></li>
+    <li><code>LevelPageSections.tsx</code>, <code>LevelFeaturesAccordion.tsx</code> (nuevos)</li>
+  </ul>
+
+  <h2>4. Contacto (/contacto)</h2>
+  <ul>
+    <li>Hero más suave (gradiente + onda + subtítulo).</li>
+    <li>Formulario en tarjeta: campos redondeados, foco cian, CTA “Agendar cita”.</li>
+    <li>Accesos rápidos a teléfono y WhatsApp.</li>
+    <li>Horario y dirección más legibles; mapa con bordes suaves.</li>
+    <li>Enlaces a Maternal / Kínder.</li>
+    <li>Correos del Server Action con remitente/nombre institucional correcto (sin Churchill).</li>
+  </ul>
+  <p class="muted">Archivos: <code>contacto/page.tsx</code>, <code>ContactForm.tsx</code>, <code>actions.ts</code>.</p>
+
+  <h2>5. Servicios en línea (/servicios)</h2>
+  <ul>
+    <li>Intro clara para familias.</li>
+    <li>Cards con título, descripción y “Abrir portal” (colegiaturas, inscripciones, facturación, examen).</li>
+    <li>Sección <strong>Próximamente</strong> para Tareas y Servicios internos.</li>
+    <li>Bloque de ayuda → Contacto / WhatsApp.</li>
+    <li>Se conserva el hover de mancha roja Winston, más integrado a las cards.</li>
+  </ul>
+  <p class="muted">Archivo: <code>src/app/servicios/page.tsx</code>.</p>
+
+  <h2>6. Footer (global)</h2>
+  <ul>
+    <li>Onda de transición hacia el cian institucional.</li>
+    <li>Bloques: marca + dirección | navegación (Maternal, Kínder, Servicios, Contacto) | redes.</li>
+    <li>Aviso de privacidad y copyright con año.</li>
+    <li>Propiedad <code>topColor</code> para alinear la onda según la sección previa (p. ej. home con CTA cian).</li>
+  </ul>
+  <p class="muted">Archivo: <code>src/app/components/Footer.tsx</code> (único footer del sitio).</p>
+
+  <h2>7. Analytics, SEO y configuración</h2>
+  <ul>
+    <li><strong>Google Analytics:</strong> componente nuevo <code>GoogleAnalytics.tsx</code> integrado en <code>layout.tsx</code> (ID en <code>site-config.ts</code>).</li>
+    <li><strong>SEO:</strong> descriptions/keywords de home sin Churchill; schema de organización limpio.</li>
+    <li><strong>Dev en red LAN:</strong> <code>allowedDevOrigins</code> en <code>next.config.ts</code> para que al abrir por IP (p. ej. 192.168.4.23) no se bloqueen recursos de Next y la LoadingScreen no se quede pegada.</li>
+    <li><strong>LoadingScreen:</strong> respaldo CSS de auto-ocultado si la hidratación tarda.</li>
+  </ul>
+
+  <h2>8. Agentes / documentación del proyecto</h2>
+  <ul>
+    <li>Actualización de <code>AGENTS.md</code> (Skynet + Tridente).</li>
+    <li>Carpeta <code>.cursor/</code>: skills de Skynet, House, Magnus, Ozymandias, Tridente + regla del portal.</li>
+  </ul>
+
+  <h2>9. Archivos nuevos (principales)</h2>
+  <table>
+    <thead>
+      <tr><th>Archivo</th><th>Para qué sirve</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>HomeAmbient.tsx</code></td><td>Ondas y doodles del ambiente home</td></tr>
+      <tr><td><code>HomeDevelopmentCards.tsx</code></td><td>Grid de áreas de desarrollo en home</td></tr>
+      <tr><td><code>LevelPageSections.tsx</code></td><td>Sistema visual Maternal/Kínder (Cuna)</td></tr>
+      <tr><td><code>LevelFeaturesAccordion.tsx</code></td><td>Acordeón de pilares/talleres</td></tr>
+      <tr><td><code>GoogleAnalytics.tsx</code></td><td>Tag gtag / GA4</td></tr>
+    </tbody>
+  </table>
+
+  <h2>10. Volumen aproximado del diff</h2>
+  <ul>
+    <li>~18 archivos modificados + varios nuevos.</li>
+    <li>Orden de magnitud: ~+1200 / −800 líneas frente a <code>origin/master</code> (sin contar skills en <code>.cursor/</code>).</li>
+  </ul>
+
+  <h2>11. Qué NO se hizo (a propósito)</h2>
+  <ul>
+    <li>No se inventaron horarios ni edades oficiales (se deriva a admisiones).</li>
+    <li>No se hizo deploy a producción en esta pasada.</li>
+    <li>No se tocó el respaldo del Escritorio.</li>
+    <li>No se force-pusheó a master.</li>
+  </ul>
+
+  <div class="footer-note">
+    Documento generado para el equipo Winston93 · Portal winstonkinder.edu.mx · Repo educativo-winston.<br />
+    Si se requiere publicar estos cambios: commit → push → deploy Vercel del proyecto educativo-winston.
+  </div>
+
+</body>
+</html>

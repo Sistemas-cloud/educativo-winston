@@ -188,9 +188,10 @@ export default function LoadingScreen() {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden"
+      className="loading-screen-root fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden"
       style={{
         background: "linear-gradient(135deg, #3ADEFC 0%, #a78bfa 60%, #f9a8d4 100%)",
+        // 2026-08-24: Fade por JS; CSS de respaldo si la hidratación tarda (p. ej. red LAN).
         opacity: phase === "fading" ? 0 : 1,
         transition: "opacity 0.5s ease",
         pointerEvents: phase === "fading" ? "none" : "auto",

@@ -1,13 +1,21 @@
-// 2026-04-08: Página del nivel Maternal del Instituto Educativo Winston Churchill.
-//             Secciones: hero (portada-maternal), info+íconos (bloque 1 m),
-//             galería estática de eventos y footer.
-//             Regla: banners sin animación; solo íconos y textos usan AnimateOnScroll.
-// 2026-08-17: Metadata unica de /maternal y footer compartido.
+// 2026-04-08: Página Maternal.
+// 2026-08-17: Metadata y footer compartido.
+// 2026-08-22: Rediseño “Cuna de confianza” — atmósfera para madres primerizas.
 import type { Metadata } from "next";
 import Image from "next/image";
 
-import AnimateOnScroll from "../components/AnimateOnScroll";
 import Footer from "../components/Footer";
+import {
+  CradleAdmitCta,
+  CradleAdmissionsNote,
+  CradleArtStory,
+  CradleHeroWave,
+  CradleIntro,
+  CradleMomentsHeader,
+  CradleOverlap,
+  CradlePillars,
+  CradleSoftSplit,
+} from "../components/LevelPageSections";
 import LoadingScreen from "../components/LoadingScreen";
 import MaternalGallery from "../components/MaternalGallery";
 import MaternalHeroText from "../components/MaternalHeroText";
@@ -16,10 +24,11 @@ import Navbar from "../components/Navbar";
 export const metadata: Metadata = {
   title: "Maternal bilingüe Cambridge en Cd. Madero",
   description:
-    "Maternal Winston en Ciudad Madero: inglés desde el primer día con modelo Cambridge, ambiente cálido y bases para preescolar y kínder.",
+    "Maternal del Instituto Educativo Winston en Ciudad Madero: inglés desde el primer día con modelo Cambridge, ambiente cálido y bases para preescolar y kínder.",
   alternates: { canonical: "/maternal" },
   openGraph: {
-    title: "Maternal bilingüe Cambridge en Cd. Madero | Instituto Educativo Winston",
+    title:
+      "Maternal bilingüe Cambridge en Cd. Madero | Instituto Educativo Winston",
     description:
       "Maternal Winston: inglés Cambridge desde el primer día en un entorno seguro y estimulante.",
     url: "/maternal",
@@ -32,237 +41,171 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Maternal bilingüe Cambridge en Cd. Madero | Instituto Educativo Winston",
+    title:
+      "Maternal bilingüe Cambridge en Cd. Madero | Instituto Educativo Winston",
     description:
       "Maternal Winston: inglés Cambridge desde el primer día en un entorno seguro y estimulante.",
     images: ["/uploads/img/MATERNAL/portada-maternal.jpg"],
   },
 };
 
-/* ─────────── Configuración de íconos de "Impulsamos su" ─────────── */
-// 2026-04-09: Se reemplazan placeholders SVG por íconos PNG finales compartidos por el usuario.
-const impulsoItems = [
-  { src: "/uploads/img/MATERNAL/icono-engrane.png", label: "Pensamiento crítico" },
-  { src: "/uploads/img/MATERNAL/icono-foco.png", label: "Creatividad" },
-  { src: "/uploads/img/MATERNAL/icono-niño.png", label: "Seguridad" },
+const PILARES = [
+  {
+    src: "/uploads/img/MATERNAL/icono-niño.png",
+    title: "Cuidado y vínculo",
+    text: "Un entorno amoroso donde cada niño se siente visto, escuchado y acompañado.",
+  },
+  {
+    src: "/uploads/img/INICIO/ic-cuidado.png",
+    title: "Inglés vivido",
+    text: "El idioma llega en la rutina diaria, con respaldo Cambridge Educational Partner.",
+  },
+  {
+    src: "/uploads/img/MATERNAL/icono-foco.png",
+    title: "Desarrollo integral",
+    text: "Juego, exploración y rutinas que nutren lo cognitivo, emocional y social.",
+  },
 ];
 
-/* ────────────────────────── Página ────────────────────────────────────── */
+const DESARROLLO = [
+  {
+    src: "/uploads/img/MATERNAL/icono-engrane.png",
+    label: "Pensamiento crítico",
+    text: "Actividades que despiertan la curiosidad y el razonamiento desde temprano.",
+  },
+  {
+    src: "/uploads/img/MATERNAL/icono-foco.png",
+    label: "Creatividad",
+    text: "Expresión libre y proyectos lúdicos que alimentan la imaginación.",
+  },
+  {
+    src: "/uploads/img/MATERNAL/icono-niño.png",
+    label: "Seguridad emocional",
+    text: "Acompañamiento cercano para que crezcan felices, seguros y confiados.",
+  },
+];
 
 export default function MaternalPage() {
   return (
-    <>
-      {/* 2026-04-08: Pantalla de carga animada, igual a la de la página principal. */}
+    <div className="bg-[#FFFBFA]">
       <LoadingScreen />
-
-      {/* Navbar con efectos de scroll y dropdown de oferta educativa */}
       <Navbar />
 
-      {/* ══════════════════════════ HERO ══════════════════════════════════ */}
-      {/* 2026-04-08: Portada maternal a full-width; banner sin animación.  */}
-      <section className="relative h-[56.25vw] w-full max-h-[100vh] overflow-hidden">
+      {/* ═══ HERO emocional ═══ */}
+      <section className="relative h-[68vh] min-h-[460px] w-full overflow-hidden sm:h-[72vh] md:h-[88vh] md:max-h-[920px]">
         <Image
           src="/uploads/img/MATERNAL/portada-maternal.jpg"
-          alt="Portada Maternal Instituto Educativo Winston"
+          alt="Niños en Maternal del Instituto Educativo Winston"
           fill
           priority
           sizes="100vw"
           className="object-cover object-center"
         />
-        {/* Texto MATERNAL con animación pop-bounce */}
+        <div
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#2A2F33]/55 via-[#2A2F33]/15 to-transparent"
+          aria-hidden="true"
+        />
         <MaternalHeroText />
+        <CradleHeroWave />
       </section>
 
-      {/* ══════════════════ BLOQUE 1 — Info + Íconos ══════════════════════ */}
-      {/* 2026-04-08: Banner sin animación; textos e íconos usan AnimateOnScroll. */}
-      <section className="relative w-full">
-        {/* Banner de fondo — nombre con espacio, Next.js lo codifica internamente */}
-        <Image
-          src="/uploads/img/MATERNAL/bloque 1 m.jpg"
-          alt="Niños en el nivel Maternal del Instituto Winston"
-          width={1024}
-          height={576}
-          sizes="100vw"
-          className="h-auto w-full object-cover"
-        />
+      <CradleIntro
+        eyebrow="Instituto Educativo Winston · Ciudad Madero"
+        title="Sabemos lo que significa confiarle a alguien lo más importante"
+      >
+        <p>
+          En Maternal acompañamos esos primeros pasos con calidez y profesionalismo.
+          Tu hijo vive el inglés de forma natural, en un espacio seguro pensado
+          para la primera infancia.
+        </p>
+        <p>
+          No apresuramos etapas: cuidamos el vínculo, la rutina y el juego para
+          que cada día se sienta como un hogar que enseña.
+        </p>
+      </CradleIntro>
 
-        {/* Texto superpuesto — desktop (lado izquierdo del banner) */}
-        <div className="absolute inset-0 hidden md:block">
-          {/* 2026-04-09: Ajuste fino en desktop para mover el bloque más a la derecha y un poco más abajo. */}
-          <div className="absolute left-[10%] top-[10%] w-[40%]">
+      <CradlePillars
+        heading="Cómo acompañamos a tu hijo"
+        subheading="Tres promesas simples, presentes en cada jornada."
+        items={PILARES}
+      />
 
-            {/* Título + párrafos */}
-            <AnimateOnScroll animation="fadeUp" delay={0}>
-              {/* 2026-04-13: Se normaliza azul de títulos a tono exacto #00D3F9. */}
-              <h3 className="mb-3 text-base font-extrabold uppercase leading-snug tracking-wide text-[#00D3F9] lg:text-xl">
-                El inglés llega desde el primer día,<br />
-                en un entorno cálido, seguro<br />
-                y estimulante
-              </h3>
-              <p className="mb-3 text-justify text-sm leading-relaxed text-gray-600 lg:text-base">
-                En Maternal Winston, sus hijos comienzan a vivir el inglés
-                desde el primer día, incorporándose de forma natural en su
-                rutina gracias a nuestro modelo educativo respaldado por la
-                certificación Cambridge.
-              </p>
-              <p className="text-justify text-sm leading-relaxed text-gray-600 lg:text-base">
-                Esto les permite desarrollar sólidas habilidades comunicativas
-                desde temprano, sentando las bases para dominar el idioma con
-                confianza a lo largo de su vida escolar.
-              </p>
-            </AnimateOnScroll>
+      {/* 2026-08-22: Arte + copy en el espacio blanco (composición completa). */}
+      <CradleArtStory
+        src="/uploads/img/MATERNAL/bloque 1 m.jpg"
+        alt="Maternal — Instituto Educativo Winston"
+        eyebrow="El corazón de Maternal"
+        title={
+          <>
+            Aquí los primeros días
+            <br className="hidden lg:block" /> se viven con ternura
+          </>
+        }
+        paragraphs={[
+          "Cada rutina está pensada para que tu bebé se sienta seguro: juego, canciones, inglés natural y el cuidado de adultos que están presentes.",
+          "No apresuramos etapas. Acompañamos el descubrimiento con paciencia, para que confíe en el mundo — y tú confíes en nosotros.",
+        ]}
+        closing="Instituto Educativo Winston · Ciudad Madero"
+      />
 
-            {/* Sección Impulsamos su */}
-            <AnimateOnScroll animation="fadeUp" delay={200}>
-              <h4 className="mt-5 mb-4 text-center text-sm font-extrabold uppercase tracking-widest text-[#00D3F9] lg:text-base">
-                Impulsamos su:
-              </h4>
-              <div className="flex items-start justify-center gap-6">
-                {impulsoItems.map(({ src, label }, i) => (
-                  <AnimateOnScroll
-                    key={label}
-                    animation="bounceIn"
-                    delay={i * 100}
-                    className="flex flex-col items-center gap-1"
-                  >
-                    {/* 2026-04-09: Íconos finales PNG para la sección "Impulsamos su". */}
-                    <div className="h-[72px] w-[72px] drop-shadow-md transition-transform hover:scale-110 lg:h-[92px] lg:w-[92px]">
-                      <Image
-                        src={src}
-                        alt={label}
-                        width={92}
-                        height={92}
-                        className="h-full w-full object-contain"
-                      />
-                    </div>
-                    <span className="max-w-[80px] text-center text-xs font-bold text-gray-700 lg:max-w-[100px]">
-                      {label}
-                    </span>
-                  </AnimateOnScroll>
-                ))}
-              </div>
-            </AnimateOnScroll>
-
-            {/* Párrafo de cierre */}
-            <AnimateOnScroll animation="fadeUp" delay={350}>
-              <p className="mt-4 text-justify text-sm leading-relaxed text-gray-600 lg:text-base">
-                Todo dentro de un ambiente cálido, seguro y estimulante.
-                Así, cada pequeño avanza con autonomía y aprendizaje
-                activo, preparándose para brillar en preescolar, primaria
-                y más allá.
-              </p>
-            </AnimateOnScroll>
-          </div>
-        </div>
-
-        {/* Versión móvil: texto debajo de la imagen */}
-        <div className="bg-white px-6 py-10 md:hidden">
-          <AnimateOnScroll animation="fadeUp">
-            <h3 className="mb-3 text-sm font-extrabold uppercase leading-snug tracking-wide text-[#00D3F9]">
-              El inglés llega desde el primer día, en un entorno cálido, seguro y estimulante
-            </h3>
-            <p className="mb-3 text-justify text-sm leading-relaxed text-gray-600">
-              En Maternal Winston, sus hijos comienzan a vivir el inglés
-              desde el primer día, incorporándose de forma natural en su
-              rutina gracias a nuestro modelo educativo respaldado por la
-              certificación Cambridge.
+      <CradleSoftSplit
+        eyebrow="Ambiente y seguridad"
+        title="Un lugar pensado para que tú también estés en paz"
+        body={
+          <>
+            <p>
+              Aulas cálidas, adultos responsables y una comunicación cercana con
+              las familias. Queremos que al dejar a tu bebé sientas tranquilidad,
+              no prisa.
             </p>
-            <p className="text-justify text-sm leading-relaxed text-gray-600">
-              Esto les permite desarrollar sólidas habilidades comunicativas
-              desde temprano, sentando las bases para dominar el idioma con
-              confianza a lo largo de su vida escolar.
+            <p>
+              Contamos con servicio de estancia y un modelo bilingüe con respaldo
+              Cambridge, siempre al ritmo de la edad Maternal.
             </p>
-          </AnimateOnScroll>
+          </>
+        }
+        imageSrc="/uploads/img/MATERNAL/GALERIA/DANCE.jpg"
+        imageAlt="Momento en Maternal — Instituto Educativo Winston"
+        imagePosition="center"
+      />
 
-          <AnimateOnScroll animation="fadeUp" delay={150}>
-            <h4 className="mt-6 mb-4 text-center text-sm font-extrabold uppercase tracking-widest text-[#00D3F9]">
-              Impulsamos su:
-            </h4>
-            <div className="flex justify-center gap-8">
-              {impulsoItems.map(({ src, label }, i) => (
-                <AnimateOnScroll
-                  key={label}
-                  animation="bounceIn"
-                  delay={i * 100}
-                  className="flex flex-col items-center gap-1"
-                >
-                  <div className="h-[64px] w-[64px]">
-                    {/* 2026-04-09: Íconos finales PNG también aplicados en móvil para mantener consistencia. */}
-                    <Image
-                      src={src}
-                      alt={label}
-                      width={64}
-                      height={64}
-                      className="h-full w-full object-contain"
-                    />
-                  </div>
-                  <span className="max-w-[70px] text-center text-xs font-bold text-gray-700">
-                    {label}
-                  </span>
-                </AnimateOnScroll>
-              ))}
+      <CradleOverlap
+        imageSrc="/uploads/img/MATERNAL/GALERIA/RACING.jpg"
+        imageAlt="Desarrollo en Maternal Winston"
+        eyebrow="Áreas de desarrollo"
+        title="Crece con equilibrio"
+        intro="Impulsamos lo que necesita en esta edad — con ternura y claridad."
+        items={DESARROLLO}
+      />
+
+      <CradleAdmissionsNote levelLabel="Maternal" />
+
+      <CradleMomentsHeader title="Vida en Maternal" />
+      <section className="bg-[#FFFBFA] px-4 pb-16 md:px-8 md:pb-24">
+        <div className="mx-auto max-w-5xl overflow-hidden rounded-[1.75rem] shadow-[0_24px_56px_-30px_rgba(42,47,51,0.3)]">
+          <div className="relative bg-[#e8192c]/95">
+            <Image
+              src="/uploads/img/MATERNAL/bloque2-kinder.png"
+              alt=""
+              width={1024}
+              height={480}
+              sizes="100vw"
+              className="h-auto w-full object-cover opacity-90"
+              aria-hidden="true"
+            />
+            <div className="absolute inset-x-0 bottom-[8%] px-3 md:bottom-[10%] md:px-6">
+              <MaternalGallery />
             </div>
-          </AnimateOnScroll>
-
-          <AnimateOnScroll animation="fadeUp" delay={250}>
-            <p className="mt-4 text-justify text-sm leading-relaxed text-gray-600">
-              Todo dentro de un ambiente cálido, seguro y estimulante.
-              Así, cada pequeño avanza con autonomía y aprendizaje activo,
-              preparándose para brillar en preescolar, primaria y más allá.
-            </p>
-          </AnimateOnScroll>
-        </div>
-      </section>
-
-      {/* 2026-04-13: Se ajusta la cinta de Maternal para evitar empalmes con el contenido superior y preservar legibilidad en desktop/tablet. */}
-      <section className="relative z-20 hidden w-full md:block">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-center px-8 pt-4 lg:px-12 lg:pt-6">
-          <AnimateOnScroll animation="fadeUp" className="kinder-ribbon-left w-1/2">
-            <div className="relative bg-red-500 px-8 py-3 text-center">
-              <span className="text-lg font-extrabold uppercase tracking-wide text-white">
-                Servicio de Estancia
-              </span>
-              <span className="absolute -right-4 top-1/2 -translate-y-1/2 text-3xl font-black text-white">
-                +
-              </span>
-            </div>
-          </AnimateOnScroll>
-          <AnimateOnScroll animation="fadeUp" className="kinder-ribbon-right w-1/2">
-            <div className="relative bg-cyan-400 px-8 py-3 text-center">
-              <span className="text-lg font-extrabold uppercase tracking-wide text-white">
-                Inglés desde los primeros pasos
-              </span>
-              <span className="absolute -left-4 top-1/2 -translate-y-1/2 text-3xl font-black text-white">
-                +
-              </span>
-            </div>
-          </AnimateOnScroll>
-        </div>
-      </section>
-
-      {/* ══════════════════ BLOQUE 2 — Galería de eventos ═════════════════ */}
-      {/* 2026-04-08: Mismo fondo de ondas rojas de Kinder; galería estática
-          con hover (sin movimiento continuo). */}
-      <section className="relative w-full">
-        <Image
-          src="/uploads/img/MATERNAL/bloque2-kinder.png"
-          alt="Galería de eventos del nivel Maternal Winston"
-          width={1024}
-          height={576}
-          sizes="100vw"
-          className="h-auto w-full object-cover"
-        />
-
-        {/* 2026-04-08: Galería posicionada en la mitad-baja del banner. */}
-        <div className="absolute inset-x-0 bottom-[11%] flex justify-center px-4 md:bottom-[13%] md:px-8">
-          <div className="w-full max-w-5xl">
-            <MaternalGallery />
           </div>
         </div>
       </section>
 
-      {/* 2026-08-17: Footer extraido a componente compartido. */}
+      <CradleAdmitCta
+        levelLabel="Maternal"
+        line="Tu bebé merece un comienzo lleno de amor y confianza"
+      />
+
       <Footer />
-    </>
+    </div>
   );
 }

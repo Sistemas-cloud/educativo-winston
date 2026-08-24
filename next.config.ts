@@ -8,6 +8,13 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  // 2026-08-24: Permite abrir el sitio por IP de red en `next dev`
+  // (sin esto HMR/chunks fallan y LoadingScreen se queda pegado).
+  allowedDevOrigins: [
+    "192.168.4.23",
+    "127.0.0.1",
+    "localhost",
+  ],
   // 2026-08-18: 308 de .vercel.app → dominio propio. Incluye `/` porque `/:path*` no siempre matchea home.
   async redirects() {
     return [

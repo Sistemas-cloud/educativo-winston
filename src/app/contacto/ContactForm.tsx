@@ -1,5 +1,5 @@
-// 2026-04-09: Formulario de contacto como Client Component para manejar
-//             el estado de envío (éxito/error) y feedback visual al usuario.
+// 2026-04-09: Formulario de contacto (Client Component + Server Action).
+// 2026-08-22: Estilos Cuna de confianza — campos suaves, CTA claro.
 "use client";
 
 import { useActionState } from "react";
@@ -8,21 +8,22 @@ import { ContactFormState, sendContactEmail } from "./actions";
 
 const initialState: ContactFormState = { status: "idle", message: "" };
 
-/* ── Estilos reutilizables de campo ────────────────────────────────────── */
 const fieldClass =
-  "w-full rounded border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 outline-none transition focus:border-red-500 focus:ring-1 focus:ring-red-400";
-const labelClass = "mb-1 block text-xs font-bold uppercase tracking-widest text-gray-500";
+  "w-full rounded-xl border border-[#E0E6E9] bg-[#FFFBFA] px-3.5 py-2.5 text-sm text-[#2A2F33] outline-none transition placeholder:text-[#A0A8AE] focus:border-[#00D3F9] focus:bg-white focus:ring-2 focus:ring-[#00D3F9]/25";
+const labelClass =
+  "mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8A9399]";
 
 export default function ContactForm() {
-  const [state, formAction, pending] = useActionState(sendContactEmail, initialState);
+  const [state, formAction, pending] = useActionState(
+    sendContactEmail,
+    initialState,
+  );
 
   return (
     <form action={formAction} noValidate className="flex flex-col gap-5">
-
-      {/* Nombre del padre o tutor */}
       <div>
         <label htmlFor="nombre" className={labelClass}>
-          Nombre del padre o tutor <span className="text-red-500">*</span>
+          Nombre del padre o tutor <span className="text-[#e8192c]">*</span>
         </label>
         <input
           id="nombre"
@@ -34,7 +35,6 @@ export default function ContactForm() {
         />
       </div>
 
-      {/* Nombre del aspirante */}
       <div>
         <label htmlFor="aspirante" className={labelClass}>
           Nombre del aspirante
@@ -48,70 +48,67 @@ export default function ContactForm() {
         />
       </div>
 
-      {/* Correo */}
-      <div>
-        <label htmlFor="correo" className={labelClass}>
-          Correo <span className="text-red-500">*</span>
-        </label>
-        <input
-          id="correo"
-          name="correo"
-          type="email"
-          required
-          autoComplete="email"
-          className={fieldClass}
-        />
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        <div>
+          <label htmlFor="correo" className={labelClass}>
+            Correo <span className="text-[#e8192c]">*</span>
+          </label>
+          <input
+            id="correo"
+            name="correo"
+            type="email"
+            required
+            autoComplete="email"
+            className={fieldClass}
+          />
+        </div>
+        <div>
+          <label htmlFor="telefono" className={labelClass}>
+            Teléfono
+          </label>
+          <input
+            id="telefono"
+            name="telefono"
+            type="tel"
+            autoComplete="tel"
+            className={fieldClass}
+          />
+        </div>
       </div>
 
-      {/* Mensaje */}
       <div>
         <label htmlFor="mensaje" className={labelClass}>
-          Mensaje <span className="text-red-500">*</span>
+          Mensaje <span className="text-[#e8192c]">*</span>
         </label>
         <textarea
           id="mensaje"
           name="mensaje"
           required
           rows={5}
+          placeholder="Cuéntanos en qué nivel estás interesado y el mejor horario para visitarlos…"
           className={`${fieldClass} resize-none`}
         />
       </div>
 
-      {/* Teléfono */}
-      <div>
-        <label htmlFor="telefono" className={labelClass}>
-          Teléfono
-        </label>
-        <input
-          id="telefono"
-          name="telefono"
-          type="tel"
-          autoComplete="tel"
-          className={fieldClass}
-        />
-      </div>
-
-      {/* Mensaje de respuesta (éxito / error) */}
       {state.status !== "idle" && (
         <div
           role="alert"
-          className={`rounded px-4 py-3 text-sm font-medium ${
+          className={`rounded-xl px-4 py-3 text-sm font-medium ${
             state.status === "success"
-              ? "bg-green-50 text-green-700 border border-green-200"
-              : "bg-red-50 text-red-700 border border-red-200"
+              ? "border border-emerald-200 bg-emerald-50 text-emerald-800"
+              : "border border-red-200 bg-red-50 text-red-700"
           }`}
         >
           {state.message}
         </div>
       )}
 
-      {/* Botón de envío */}
       <button
         type="submit"
         disabled={pending || state.status === "success"}
-        className="mt-1 rounded bg-[#e8192c] px-6 py-3 text-sm font-extrabold uppercase tracking-widest text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-1 inline-flex min-h-11 items-center justify-center rounded-full bg-[#00D3F9] px-8 text-xs font-bold tracking-[0.18em] text-white shadow-[0_12px_28px_-12px_rgba(0,211,249,0.65)] transition hover:bg-[#00BFE0] focus-visible:outline-2 focus-visible:outline-[#00D3F9] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {pending ? "Enviando…" : "Agendar cita"}
+        {pending ? "Enviando…" : "AGENDAR CITA"}
       </button>
     </form>
   );

@@ -1,184 +1,234 @@
-﻿// 2026-04-09: Página de Servicios en Línea del Instituto Educativo Winston Churchill.
-//             Seis portales de acceso con efecto hover de mancha roja orgánica.
-// 2026-08-17: Metadata unica de /servicios y footer compartido.
-// 2026-08-17: URLs alineadas a winston93.edu.mx/servicios-en-linea (Ozymandias).
+﻿// 2026-04-09: Servicios en línea — portales de acceso familias.
+// 2026-08-17: Metadata, footer compartido; URLs alineadas a winston93.
+// 2026-08-22: Rediseño Cuna de confianza — claridad, aire, sin Churchill.
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 
 import AnimateOnScroll from "../components/AnimateOnScroll";
 import Footer from "../components/Footer";
 import LoadingScreen from "../components/LoadingScreen";
 import Navbar from "../components/Navbar";
-import { SITE_PORTALS } from "@/lib/seo/site-config";
+import { SITE_NAME, SITE_PORTALS, SITE_SOCIAL } from "@/lib/seo/site-config";
 
 export const metadata: Metadata = {
   title: "Servicios en línea para familias",
   description:
-    "Colegiaturas, inscripciones, alta de facturación, servicios internos y registro de examen del Instituto Educativo Winston Churchill.",
+    "Colegiaturas, inscripciones, alta de facturación y registro de examen del Instituto Educativo Winston. Acceso en línea para familias en Ciudad Madero.",
   alternates: { canonical: "/servicios" },
   openGraph: {
     title: "Servicios en línea | Instituto Educativo Winston",
     description:
-      "Accede a colegiaturas, inscripciones, facturación y servicios internos de Educativo Winston.",
+      "Accede a colegiaturas, inscripciones, facturación y registro de examen del Instituto Educativo Winston.",
     url: "/servicios",
   },
   twitter: {
     card: "summary_large_image",
     title: "Servicios en línea | Instituto Educativo Winston",
     description:
-      "Accede a colegiaturas, inscripciones, facturación y servicios internos de Educativo Winston.",
+      "Accede a colegiaturas, inscripciones, facturación y registro de examen del Instituto Educativo Winston.",
   },
 };
 
-/* ──────────────────── Portales de servicio ─────────────────────────────── */
-
 type PortalItem = {
   src: string;
-  label: string;
+  title: string;
+  description: string;
   href?: string;
-  /** Sin enlace activo (en construccion o pendiente de URL). */
   disabled?: boolean;
 };
 
 const PORTALES: PortalItem[] = [
   {
-    src: "/uploads/img/SERVICIOS/alta.png",
-    label: "ALTA DE\nFACTURACIÓN",
-    href: SITE_PORTALS.admin,
-  },
-  {
     src: "/uploads/img/SERVICIOS/colegiaturas.png",
-    label: "COLEGIATURAS",
+    title: "Colegiaturas",
+    description: "Consulta y realiza pagos de colegiatura de forma segura.",
     href: SITE_PORTALS.admin,
   },
   {
     src: "/uploads/img/SERVICIOS/usuario.png",
-    label: "INSCRIPCIONES",
+    title: "Inscripciones",
+    description: "Gestiona el proceso de inscripción de tu hijo.",
     href: SITE_PORTALS.admin,
   },
   {
+    src: "/uploads/img/SERVICIOS/alta.png",
+    title: "Alta de facturación",
+    description: "Registra o actualiza tus datos de facturación.",
+    href: SITE_PORTALS.admin,
+  },
+  {
+    src: "/uploads/img/SERVICIOS/registro.png",
+    title: "Registro para examen",
+    description: "Agenda tu cita de examen en línea.",
+    href: SITE_PORTALS.examSchedule,
+  },
+  {
     src: "/uploads/img/SERVICIOS/tareas.png",
-    label: "TAREAS\nEN LÍNEA",
+    title: "Tareas en línea",
+    description: "Portal de tareas — disponible próximamente.",
     disabled: true,
   },
   {
     src: "/uploads/img/SERVICIOS/servicios_internos.png",
-    label: "SERVICIOS\nINTERNOS",
+    title: "Servicios internos",
+    description: "Herramientas del personal — disponible próximamente.",
     disabled: true,
-  },
-  {
-    src: "/uploads/img/SERVICIOS/registro.png",
-    label: "REGISTRO\nPARA EXAMEN",
-    href: SITE_PORTALS.examSchedule,
   },
 ];
 
-/* ────────────────────────── Página ────────────────────────────────────── */
-
 export default function ServiciosPage() {
+  const activos = PORTALES.filter((p) => !p.disabled && p.href);
+  const proximos = PORTALES.filter((p) => p.disabled || !p.href);
+
   return (
-    <>
+    <div className="bg-[#FFFBFA]">
       <LoadingScreen />
       <Navbar />
 
-      {/* ══════════════════ SERVICIOS EN LÍNEA ════════════════════════════ */}
-      {/* 2026-04-09: Se aumenta el padding superior para separar título e íconos del navbar fijo. */}
-      <main className="relative min-h-screen overflow-hidden bg-white px-6 pt-28 pb-20 md:pt-36">
+      <main className="relative overflow-hidden px-6 pt-28 pb-8 md:pt-36 md:pb-12">
+        {/* Halo suave de marca — sin ornamentación ruidosa */}
+        <div
+          className="pointer-events-none absolute -left-24 top-20 h-64 w-64 rounded-full bg-[#00D3F9]/10 blur-3xl"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute -right-20 top-40 h-56 w-56 rounded-full bg-[#e8192c]/8 blur-3xl"
+          aria-hidden="true"
+        />
 
-        {/* ── Decorativos de fondo (misma estética que la captura) ── */}
-        {/* 2026-04-09: SVG ornamentales para mantener identidad visual de la marca. */}
-        <svg className="pointer-events-none absolute left-6 top-16 w-36 opacity-10 md:w-48" viewBox="0 0 200 200" fill="none" aria-hidden="true">
-          <circle cx="100" cy="100" r="70" stroke="#9ca3af" strokeWidth="6" />
-          {[0,30,60,90,120,150,180,210,240,270,300,330].map((deg) => (
-            <line key={deg}
-              x1={100 + 70 * Math.cos((deg * Math.PI) / 180)}
-              y1={100 + 70 * Math.sin((deg * Math.PI) / 180)}
-              x2={100 + 90 * Math.cos((deg * Math.PI) / 180)}
-              y2={100 + 90 * Math.sin((deg * Math.PI) / 180)}
-              stroke="#9ca3af" strokeWidth="5" strokeLinecap="round"
-            />
-          ))}
-          <circle cx="100" cy="100" r="20" fill="#9ca3af" />
-          <circle cx="100" cy="100" r="10" fill="white" />
-        </svg>
+        <div className="relative z-[1] mx-auto max-w-5xl">
+          <AnimateOnScroll animation="fadeUp">
+            <p className="mb-3 text-center text-[11px] font-semibold uppercase tracking-[0.28em] text-[#8A9399]">
+              {SITE_NAME}
+            </p>
+            <h1 className="mb-4 text-center font-heading text-3xl font-bold text-[#2A2F33] md:text-4xl">
+              Servicios en línea
+            </h1>
+            <p className="mx-auto mb-14 max-w-xl text-center text-[15px] leading-relaxed text-[#5C656C] md:mb-16 md:text-base">
+              Todo lo que necesitas para pagos, inscripciones y trámites,
+              en un solo lugar. Elige el servicio y te llevamos al portal
+              correspondiente.
+            </p>
+          </AnimateOnScroll>
 
-        <svg className="pointer-events-none absolute right-6 top-12 w-12 opacity-10 md:w-16" viewBox="0 0 100 100" fill="none" aria-hidden="true">
-          {[0,72,144,216,288].map((deg, i) => (
-            <line key={i}
-              x1="50" y1="50"
-              x2={50 + 45 * Math.cos(((deg - 90) * Math.PI) / 180)}
-              y2={50 + 45 * Math.sin(((deg - 90) * Math.PI) / 180)}
-              stroke="#9ca3af" strokeWidth="4" strokeLinecap="round"
-            />
-          ))}
-        </svg>
-
-        <svg className="pointer-events-none absolute bottom-28 left-4 w-20 opacity-10 md:w-28" viewBox="0 0 120 180" fill="none" aria-hidden="true">
-          <ellipse cx="60" cy="60" r="40" stroke="#9ca3af" strokeWidth="5" />
-          <path d="M60 100 Q30 130 40 170 Q60 145 80 170 Q90 130 60 100Z" fill="#9ca3af" />
-        </svg>
-
-        <svg className="pointer-events-none absolute bottom-24 right-4 w-16 opacity-10 md:w-24" viewBox="0 0 100 120" fill="none" aria-hidden="true">
-          <path d="M50 10 C20 10 10 30 10 50 C10 70 20 90 50 110 C80 90 90 70 90 50 C90 30 80 10 50 10Z" stroke="#9ca3af" strokeWidth="5" fill="none" />
-        </svg>
-
-        {/* ── Título ── */}
-        <AnimateOnScroll animation="fadeUp" delay={0}>
-          <h1 className="mb-4 text-center text-2xl font-extrabold uppercase tracking-[0.25em] text-gray-400 md:text-3xl lg:text-4xl">
-            Servicios en Línea
-          </h1>
-          <div className="mx-auto mb-16 h-px w-4/5 max-w-2xl bg-gray-300" />
-        </AnimateOnScroll>
-
-        {/* ── Grid de portales ── */}
-        <div className="mx-auto grid max-w-3xl grid-cols-3 gap-y-16 gap-x-6 md:gap-x-10 md:gap-y-20">
-          {PORTALES.map(({ src, label, href, disabled }, i) => {
-            const isInactive = disabled || !href;
-            return (
-              <AnimateOnScroll key={label} animation="fadeUp" delay={i * 80}>
-                {/* 2026-04-13: En móvil se optimiza el tap para evitar que el hover bloquee la navegación.
-                    Portales disabled: sin href (paridad winston93 — Tareas / Servicios internos). */}
+          {/* Activos */}
+          <div className="mb-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-2 lg:gap-6">
+            {activos.map((portal, i) => (
+              <AnimateOnScroll
+                key={portal.title}
+                animation="fadeUp"
+                delay={i * 70}
+              >
                 <a
-                  href={isInactive ? undefined : href}
-                  target={isInactive ? undefined : "_blank"}
-                  rel={isInactive ? undefined : "noopener noreferrer"}
-                  aria-disabled={isInactive}
-                  tabIndex={isInactive ? -1 : undefined}
-                  className={[
-                    "group flex touch-manipulation flex-col items-center gap-3 select-none outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2",
-                    isInactive ? "cursor-not-allowed opacity-70" : "cursor-pointer",
-                  ].join(" ")}
-                  aria-label={
-                    isInactive
-                      ? `${label.replace("\n", " ")} — en construcción`
-                      : label.replace("\n", " ")
-                  }
+                  href={portal.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex h-full items-start gap-4 rounded-[1.5rem] border border-[#E8EEF0] bg-white p-5 shadow-[0_16px_40px_-28px_rgba(42,47,51,0.25)] transition-all duration-300 hover:-translate-y-1 hover:border-[#00D3F9]/35 hover:shadow-[0_22px_48px_-24px_rgba(0,211,249,0.35)] focus-visible:outline-2 focus-visible:outline-[#00D3F9] md:gap-5 md:p-6"
                 >
-                  <div className="relative flex h-[120px] w-[120px] items-center justify-center md:h-[150px] md:w-[150px]">
+                  <div className="relative flex h-[4.5rem] w-[4.5rem] flex-shrink-0 items-center justify-center md:h-[5.25rem] md:w-[5.25rem]">
                     <span
-                      className="absolute inset-0 scale-0 rounded-[60%_40%_55%_45%/60%_45%_55%_40%] bg-[#e8192c] transition-transform duration-300 ease-out group-hover:scale-100 group-active:scale-100"
+                      className="absolute inset-0 scale-0 rounded-[60%_40%_55%_45%/60%_45%_55%_40%] bg-[#e8192c] transition-transform duration-300 ease-out group-hover:scale-100"
                       aria-hidden="true"
                     />
                     <Image
-                      src={src}
-                      alt={label.replace("\n", " ")}
-                      width={80}
-                      height={80}
-                      className="relative z-10 h-[72px] w-[72px] object-contain transition-all duration-300 md:h-[88px] md:w-[88px] group-hover:brightness-0 group-hover:invert group-active:brightness-0 group-active:invert"
+                      src={portal.src}
+                      alt=""
+                      width={72}
+                      height={72}
+                      className="relative z-10 h-12 w-12 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert md:h-14 md:w-14"
                     />
                   </div>
-
-                  <span className="whitespace-pre-line text-center text-xs font-bold uppercase tracking-widest text-gray-500 transition-colors duration-300 group-hover:text-[#e8192c] group-active:text-[#e8192c] md:text-sm">
-                    {label}
-                  </span>
+                  <div className="min-w-0 flex-1 pt-1">
+                    <h2 className="mb-1.5 text-base font-bold text-[#2A2F33] transition-colors group-hover:text-[#e8192c] md:text-lg">
+                      {portal.title}
+                    </h2>
+                    <p className="text-sm leading-relaxed text-[#5C656C]">
+                      {portal.description}
+                    </p>
+                    <span className="mt-3 inline-block text-xs font-bold uppercase tracking-widest text-[#00B8D9]">
+                      Abrir portal →
+                    </span>
+                  </div>
                 </a>
               </AnimateOnScroll>
-            );
-          })}
+            ))}
+          </div>
+
+          {/* Próximamente */}
+          {proximos.length > 0 ? (
+            <div className="mt-14">
+              <AnimateOnScroll animation="fadeUp">
+                <p className="mb-6 text-center text-[11px] font-semibold uppercase tracking-[0.24em] text-[#8A9399]">
+                  Próximamente
+                </p>
+              </AnimateOnScroll>
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                {proximos.map((portal, i) => (
+                  <AnimateOnScroll
+                    key={portal.title}
+                    animation="fadeUp"
+                    delay={i * 70}
+                  >
+                    <div
+                      className="flex h-full items-start gap-4 rounded-[1.5rem] border border-dashed border-[#E8EEF0] bg-white/70 p-5 opacity-80 md:p-6"
+                      aria-disabled="true"
+                    >
+                      <div className="flex h-[4.5rem] w-[4.5rem] flex-shrink-0 items-center justify-center rounded-full bg-[#F7FBFC]">
+                        <Image
+                          src={portal.src}
+                          alt=""
+                          width={56}
+                          height={56}
+                          className="h-11 w-11 object-contain grayscale"
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1 pt-1">
+                        <h2 className="mb-1.5 text-base font-bold text-[#2A2F33]">
+                          {portal.title}
+                        </h2>
+                        <p className="text-sm leading-relaxed text-[#5C656C]">
+                          {portal.description}
+                        </p>
+                      </div>
+                    </div>
+                  </AnimateOnScroll>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {/* Ayuda */}
+          <AnimateOnScroll animation="fadeUp">
+            <div className="mx-auto mt-16 max-w-2xl rounded-[1.5rem] bg-[#E8F9FC]/70 px-6 py-10 text-center md:mt-20 md:px-10">
+              <h2 className="mb-3 font-heading text-xl font-bold text-[#2A2F33]">
+                ¿Necesitas ayuda con un trámite?
+              </h2>
+              <p className="mb-6 text-sm leading-relaxed text-[#5C656C] md:text-[15px]">
+                Escríbenos o agenda una orientación. Estamos para acompañarte.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                <Link
+                  href="/contacto"
+                  className="inline-flex min-h-11 items-center rounded-full bg-[#00D3F9] px-7 text-xs font-bold tracking-[0.16em] text-white transition hover:bg-[#00BFE0] focus-visible:outline-2 focus-visible:outline-[#00D3F9]"
+                >
+                  CONTACTO
+                </Link>
+                <a
+                  href={SITE_SOCIAL.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center rounded-full border border-[#2A2F33]/12 bg-white px-7 text-xs font-bold tracking-[0.16em] text-[#2A2F33] transition hover:border-[#00D3F9]/40 focus-visible:outline-2 focus-visible:outline-[#00D3F9]"
+                >
+                  WHATSAPP
+                </a>
+              </div>
+            </div>
+          </AnimateOnScroll>
         </div>
       </main>
 
       <Footer />
-    </>
+    </div>
   );
 }

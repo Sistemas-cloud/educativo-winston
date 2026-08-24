@@ -6,22 +6,25 @@ export const SITE_URL = "https://www.winstonkinder.edu.mx" as const;
 // 2026-08-18: Alias de produccion Vercel — no indexar; redirigir al canonical.
 export const SITE_VERCEL_HOST = "educativo-winston.vercel.app" as const;
 
+// 2026-08-20: Google Analytics 4 / Google Ads tag (gtag).
+export const SITE_GA_ID = "G-SM4QZ0TVXT" as const;
+
 export const SITE_NAME = "Instituto Educativo Winston" as const;
 
 export const SITE_TAGLINE = "Raising Brighter Kids" as const;
 
 export const SITE_DESCRIPTION =
-  "Kínder y Maternal bilingüe en Ciudad Madero, Tamaulipas. Formación Cambridge desde maternal en un entorno seguro y familiar." as const;
+  "Instituto Educativo Winston: Maternal y Kínder bilingüe en Ciudad Madero, Tamaulipas. Formación Cambridge en un entorno seguro y familiar." as const;
 
 export const SITE_KEYWORDS = [
   "Instituto Educativo Winston",
   "kínder bilingüe",
   "maternal bilingüe",
   "Cd. Madero",
+  "Ciudad Madero",
   "Tamaulipas",
   "Cambridge",
   "preescolar",
-  "Winston Churchill",
 ] as const;
 
 export const SITE_LOCALE = "es_MX" as const;

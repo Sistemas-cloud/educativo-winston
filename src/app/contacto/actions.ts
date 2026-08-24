@@ -43,7 +43,7 @@ export async function sendContactEmail(
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;">
       <div style="background:#e8192c;padding:24px 32px;">
         <h1 style="color:#fff;margin:0;font-size:20px;letter-spacing:2px;">NUEVA SOLICITUD DE CITA</h1>
-        <p style="color:#fecaca;margin:4px 0 0;font-size:13px;">Instituto Educativo Winston Churchill</p>
+        <p style="color:#fecaca;margin:4px 0 0;font-size:13px;">Instituto Educativo Winston</p>
       </div>
       <div style="padding:32px;background:#fff;">
         <table style="width:100%;border-collapse:collapse;font-size:14px;color:#374151;">
@@ -58,14 +58,15 @@ export async function sendContactEmail(
         </div>
       </div>
       <div style="padding:16px 32px;background:#f9fafb;text-align:center;font-size:12px;color:#9ca3af;">
-        Enviado desde el formulario de contacto del sitio web · Instituto Educativo Winston Churchill
+        Enviado desde el formulario de contacto del sitio web · Instituto Educativo Winston
       </div>
     </div>
   `;
 
   try {
     await transporter.sendMail({
-      from:    `"Winston Churchill" <${process.env.SMTP_FROM ?? process.env.SMTP_USER}>`,
+      // 2026-08-22: Remitente con nombre institucional correcto.
+      from:    `"Instituto Educativo Winston" <${process.env.SMTP_FROM ?? process.env.SMTP_USER}>`,
       to:      "sistemas3@winston93.edu.mx",
       replyTo: correo,
       subject: `Nueva solicitud de cita — ${nombre}`,

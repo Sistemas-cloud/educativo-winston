@@ -15,7 +15,6 @@ export function getOrganizationSchema() {
     "@context": "https://schema.org",
     "@type": "School",
     name: SITE_NAME,
-    alternateName: "Instituto Educativo Winston Churchill",
     url: SITE_URL,
     logo: absoluteUrl(SITE_LOGO_PATH),
     image: absoluteUrl(SITE_LOGO_PATH),
