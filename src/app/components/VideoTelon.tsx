@@ -212,16 +212,7 @@ export default function VideoTelon({ open, onClose }: VideoTelonProps) {
             </video>
           </div>
 
-          {/* Puntos de color decorativos (igual que el menu móvil) */}
-          <div className="flex items-center gap-2">
-            {["#FF6B6B", "#FFD93D", "#6BCB77", "#00D3F9", "#FF6B9D"].map((color, i) => (
-              <span
-                key={i}
-                className="block h-2.5 w-2.5 rounded-full"
-                style={{ backgroundColor: color }}
-              />
-            ))}
-          </div>
+          {/* 2026-08-25: Se quitan los puntos de color — parecían carrusel de videos. */}
         </div>
       </div>
     </div>
