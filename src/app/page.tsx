@@ -13,7 +13,7 @@ import HeroText from "./components/HeroText";
 import HomeDevelopmentCards from "./components/HomeDevelopmentCards";
 import LoadingScreen from "./components/LoadingScreen";
 import Navbar from "./components/Navbar";
-import { SITE_NAME, SITE_SOCIAL } from "@/lib/seo/site-config";
+import { SITE_NAME, SITE_PORTALS, SITE_SOCIAL } from "@/lib/seo/site-config";
 
 export const metadata: Metadata = {
   title: {
@@ -320,6 +320,7 @@ export default function Home() {
       <HomeWave from="#ffffff" to="#00D3F9" />
 
       {/* ═══ CTA ADMISIÓN ═══ */}
+      {/* 2026-08-25: Dos caminos — visita + registro de examen (sin inventar fechas). */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[#00D3F9] to-[#3ADEFC] px-6 py-14 md:py-16">
         <HomeDoodles tone="soft" />
         <AnimateOnScroll animation="fadeUp">
@@ -328,21 +329,30 @@ export default function Home() {
               Comienza tu proceso de admisión
             </h2>
             <p className="max-w-xl text-sm leading-relaxed text-white/95 md:text-base">
-              Agenda una cita y conoce el {SITE_NAME}. Estamos en Ciudad Madero
-              para acompañarte en Maternal y Kínder.
+              Agenda una visita para conocer el {SITE_NAME} o registra el
+              examen de admisión cuando ya estés listo. Estamos en Ciudad
+              Madero.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4">
               <Link
                 href="/contacto"
-                className="inline-block rounded-full bg-white px-8 py-3 text-xs font-bold tracking-[0.2em] text-[#00D3F9] shadow-lg transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-white md:text-sm"
+                className="inline-block rounded-full bg-white px-7 py-3 text-xs font-bold tracking-[0.18em] text-[#00D3F9] shadow-lg transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-white md:px-8 md:text-sm"
               >
                 AGENDAR CITA
               </Link>
               <a
+                href={SITE_PORTALS.examSchedule}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block rounded-full border-2 border-white px-7 py-3 text-xs font-bold tracking-[0.18em] text-white transition-colors hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-white md:px-8 md:text-sm"
+              >
+                REGISTRO DE EXAMEN
+              </a>
+              <a
                 href={SITE_SOCIAL.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block rounded-full border-2 border-white px-8 py-3 text-xs font-bold tracking-[0.2em] text-white transition-colors hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-white md:text-sm"
+                className="inline-block rounded-full border-2 border-white/70 px-7 py-3 text-xs font-bold tracking-[0.18em] text-white/95 transition-colors hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-white md:px-8 md:text-sm"
               >
                 WHATSAPP
               </a>

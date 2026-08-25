@@ -14,6 +14,7 @@ import {
   SITE_ADDRESS_LINES,
   SITE_NAME,
   SITE_PHONE_DISPLAY,
+  SITE_PORTALS,
   SITE_SOCIAL,
 } from "@/lib/seo/site-config";
 
@@ -152,6 +153,25 @@ export default function ContactoPage() {
                 </p>
               </a>
             </div>
+
+            {/* 2026-08-25: Examen de admisión — visible cuando la familia ya está en contacto. */}
+            <a
+              href={SITE_PORTALS.examSchedule}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-2xl border border-[#00D3F9]/25 bg-[#E8F9FC]/80 p-5 transition hover:border-[#00D3F9]/50 hover:shadow-md focus-visible:outline-2 focus-visible:outline-[#00D3F9] md:p-6"
+            >
+              <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#00B8D9]">
+                Examen de admisión
+              </p>
+              <p className="mb-3 text-sm leading-relaxed text-[#5C656C]">
+                Si ya conoces el instituto, también puedes registrar el examen
+                de admisión en línea.
+              </p>
+              <span className="text-sm font-bold text-[#e8192c]">
+                Ir al registro →
+              </span>
+            </a>
 
             <div className="rounded-2xl border border-[#E8EEF0] bg-white p-5 md:p-6">
               <h2 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-[#8A9399]">

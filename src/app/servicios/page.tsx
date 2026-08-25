@@ -36,9 +36,19 @@ type PortalItem = {
   description: string;
   href?: string;
   disabled?: boolean;
+  /** 2026-08-25: Destaca trámites de admisión (examen). */
+  featured?: boolean;
 };
 
 const PORTALES: PortalItem[] = [
+  {
+    src: "/uploads/img/SERVICIOS/registro.png",
+    title: "Examen de admisión",
+    description:
+      "Registra en línea el examen de admisión cuando ya estés listo para el siguiente paso.",
+    href: SITE_PORTALS.examSchedule,
+    featured: true,
+  },
   {
     src: "/uploads/img/SERVICIOS/colegiaturas.png",
     title: "Colegiaturas",
@@ -56,12 +66,6 @@ const PORTALES: PortalItem[] = [
     title: "Alta de facturación",
     description: "Registra o actualiza tus datos de facturación.",
     href: SITE_PORTALS.admin,
-  },
-  {
-    src: "/uploads/img/SERVICIOS/registro.png",
-    title: "Registro para examen",
-    description: "Agenda tu cita de examen en línea.",
-    href: SITE_PORTALS.examSchedule,
   },
   {
     src: "/uploads/img/SERVICIOS/tareas.png",
@@ -106,8 +110,8 @@ export default function ServiciosPage() {
               Servicios en línea
             </h1>
             <p className="mx-auto mb-14 max-w-xl text-center text-[15px] leading-relaxed text-[#5C656C] md:mb-16 md:text-base">
-              Todo lo que necesitas para pagos, inscripciones y trámites,
-              en un solo lugar. Elige el servicio y te llevamos al portal
+              Pagos, inscripciones y el registro del examen de admisión, en un
+              solo lugar. Elige el servicio y te llevamos al portal
               correspondiente.
             </p>
           </AnimateOnScroll>
@@ -124,8 +128,17 @@ export default function ServiciosPage() {
                   href={portal.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex h-full items-start gap-4 rounded-[1.5rem] border border-[#E8EEF0] bg-white p-5 shadow-[0_16px_40px_-28px_rgba(42,47,51,0.25)] transition-all duration-300 hover:-translate-y-1 hover:border-[#00D3F9]/35 hover:shadow-[0_22px_48px_-24px_rgba(0,211,249,0.35)] focus-visible:outline-2 focus-visible:outline-[#00D3F9] md:gap-5 md:p-6"
+                  className={`group relative flex h-full items-start gap-4 rounded-[1.5rem] border bg-white p-5 shadow-[0_16px_40px_-28px_rgba(42,47,51,0.25)] transition-all duration-300 hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-[#00D3F9] md:gap-5 md:p-6 ${
+                    portal.featured
+                      ? "border-[#00D3F9]/40 shadow-[0_18px_44px_-24px_rgba(0,211,249,0.4)] hover:border-[#00D3F9]/60 hover:shadow-[0_22px_48px_-24px_rgba(0,211,249,0.45)]"
+                      : "border-[#E8EEF0] hover:border-[#00D3F9]/35 hover:shadow-[0_22px_48px_-24px_rgba(0,211,249,0.35)]"
+                  }`}
                 >
+                  {portal.featured ? (
+                    <span className="absolute right-4 top-4 rounded-full bg-[#e8192c] px-2.5 py-0.5 text-[0.6rem] font-bold uppercase tracking-wider text-white">
+                      Admisiones
+                    </span>
+                  ) : null}
                   <div className="relative flex h-[4.5rem] w-[4.5rem] flex-shrink-0 items-center justify-center md:h-[5.25rem] md:w-[5.25rem]">
                     <span
                       className="absolute inset-0 scale-0 rounded-[60%_40%_55%_45%/60%_45%_55%_40%] bg-[#e8192c] transition-transform duration-300 ease-out group-hover:scale-100"
