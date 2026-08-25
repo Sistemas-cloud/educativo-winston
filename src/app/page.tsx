@@ -98,126 +98,85 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══ BLOQUE 1 — Instituto (doodles originales) ═══ */}
-      <section className="relative w-full bg-white">
-        <Image
-          src="/uploads/img/INICIO/bloque1.png"
-          alt="Niña sonriente del Instituto Educativo Winston"
-          width={1024}
-          height={576}
-          sizes="100vw"
-          className="h-auto w-full object-cover"
-        />
+      {/* ═══ BLOQUE 1 — Instituto ═══ */}
+      {/* 2026-08-25: Split real — recorta el blanco del PNG; texto llena la columna. */}
+      <section className="relative overflow-hidden bg-white">
+        <HomeDoodles tone="soft" />
 
-        <div className="absolute inset-0 mx-auto hidden w-full max-w-[1100px] md:block">
-          <div className="absolute right-[6%] top-[22%] w-[46%]">
+        <div className="relative z-[1] mx-auto grid max-w-6xl items-center gap-6 px-5 py-10 sm:px-8 md:grid-cols-12 md:gap-8 md:py-12 lg:gap-10 lg:py-14">
+          {/* Arte: solo la zona de la niña (object-left recorta el hueco blanco del PNG) */}
+          <div className="md:col-span-5 lg:col-span-5">
+            <div className="relative mx-auto aspect-square w-full max-w-[22rem] overflow-hidden sm:max-w-md md:mx-0 md:max-w-none md:aspect-[4/4.5]">
+              <Image
+                src="/uploads/img/INICIO/bloque1.png"
+                alt="Niña sonriente del Instituto Educativo Winston"
+                fill
+                sizes="(max-width: 768px) 90vw, 42vw"
+                className="object-cover object-[12%_center] md:object-[8%_center]"
+                priority={false}
+              />
+            </div>
+          </div>
+
+          {/* Copy: columna propia — sin overlay sobre el PNG */}
+          <div className="flex flex-col justify-center md:col-span-7 lg:col-span-7 lg:pl-2">
             <AnimateOnScroll animation="fadeUp" delay={0}>
-              <p className="text-2xl font-light leading-tight text-[#00D3F9] lg:text-3xl">
+              <p className="text-2xl font-light leading-tight text-[#00D3F9] md:text-[1.65rem] lg:text-3xl">
                 Instituto
               </p>
-              <h2 className="mb-6 text-4xl font-bold leading-tight text-[#00D3F9] lg:text-5xl">
+              <h2 className="mb-4 text-4xl font-bold leading-tight text-[#00D3F9] md:mb-5 md:text-[2.6rem] lg:text-5xl">
                 Educativo Winston
               </h2>
-            </AnimateOnScroll>
-
-            <div className="relative mb-5 grid grid-cols-2 gap-5">
-              <span
-                className="pointer-events-none absolute left-1/2 top-1 bottom-1 w-[3px] -translate-x-1/2 bg-[#00D3F9]"
-                aria-hidden="true"
-              />
-              <AnimateOnScroll animation="bounceIn" delay={100}>
-                <Image
-                  src="/uploads/img/INICIO/ic-cuidado.png"
-                  alt="Cuidado y formación integral en Maternal y Kínder"
-                  width={52}
-                  height={52}
-                  className="mx-auto mb-3 h-[34px] w-[34px] lg:h-[52px] lg:w-[52px]"
-                />
-                <p className="text-justify text-xs leading-relaxed text-gray-500 lg:text-sm">
-                  En el Instituto Educativo Winston cuidamos y formamos a los
-                  más pequeños en un entorno seguro, amoroso y diseñado para
-                  potenciar su desarrollo integral.
-                </p>
-              </AnimateOnScroll>
-
-              <AnimateOnScroll animation="bounceIn" delay={200}>
-                <Image
-                  src="/uploads/img/INICIO/ic-carita-feliz.png"
-                  alt="Aprendizaje divertido con inglés Cambridge"
-                  width={52}
-                  height={52}
-                  className="mx-auto mb-3 h-[34px] w-[34px] lg:h-[52px] lg:w-[52px]"
-                />
-                <p className="text-justify text-xs leading-relaxed text-gray-500 lg:text-sm">
-                  Ofrecemos experiencias de aprendizaje divertidas e
-                  interactivas que impulsan su crecimiento cognitivo, emocional
-                  y social, al mismo tiempo que adquieren bases sólidas en
-                  inglés con el modelo Cambridge desde maternal.
-                </p>
-              </AnimateOnScroll>
-            </div>
-
-            <AnimateOnScroll animation="fadeUp" delay={300}>
-              <p className="text-justify text-xs leading-relaxed text-gray-500 lg:text-sm">
-                Acompañamos a cada familia en esta etapa decisiva, asegurando
-                que sus hijos crezcan felices, seguros y preparados para un
-                futuro lleno de posibilidades.
+              <p className="mb-6 max-w-xl text-left text-sm leading-relaxed text-gray-500 md:mb-7 md:text-base">
+                Cuidamos y formamos a los más pequeños en un entorno seguro y
+                amoroso, pensado para su desarrollo integral.
               </p>
             </AnimateOnScroll>
-          </div>
-        </div>
 
-        <div className="bg-white px-6 py-10 md:hidden">
-          <AnimateOnScroll animation="fadeUp">
-            <p className="text-2xl font-light leading-tight text-gray-500">
-              Instituto
-            </p>
-            <h2 className="mb-6 text-4xl font-bold leading-tight text-[#00D3F9]">
-              Educativo Winston
-            </h2>
-          </AnimateOnScroll>
-          <div className="mb-5 grid grid-cols-1 gap-5">
-            <AnimateOnScroll animation="slideLeft" delay={100}>
-              <div className="flex flex-col items-center gap-3 sm:items-start">
-                <Image
-                  src="/uploads/img/INICIO/ic-cuidado.png"
-                  alt=""
-                  width={44}
-                  height={44}
-                  className="h-11 w-11"
-                />
-                <p className="text-justify text-sm leading-relaxed text-gray-500">
-                  En el Instituto Educativo Winston cuidamos y formamos a los
-                  más pequeños en un entorno seguro, amoroso y diseñado para
-                  potenciar su desarrollo integral.
-                </p>
-              </div>
-            </AnimateOnScroll>
-            <AnimateOnScroll animation="slideRight" delay={150}>
-              <div className="flex flex-col items-center gap-3 sm:items-start">
-                <Image
-                  src="/uploads/img/INICIO/ic-carita-feliz.png"
-                  alt=""
-                  width={44}
-                  height={44}
-                  className="h-11 w-11"
-                />
-                <p className="text-justify text-sm leading-relaxed text-gray-500">
-                  Ofrecemos experiencias de aprendizaje divertidas e
-                  interactivas que impulsan su crecimiento cognitivo, emocional
-                  y social, al mismo tiempo que adquieren bases sólidas en
-                  inglés con el modelo Cambridge desde maternal.
-                </p>
-              </div>
+            <ul className="mb-6 flex flex-col gap-4 md:mb-7">
+              <AnimateOnScroll animation="bounceIn" delay={100}>
+                <li className="flex items-start gap-3">
+                  <Image
+                    src="/uploads/img/INICIO/ic-cuidado.png"
+                    alt=""
+                    width={44}
+                    height={44}
+                    className="h-10 w-10 shrink-0 md:h-11 md:w-11"
+                  />
+                  <span className="pt-2 text-sm font-medium leading-snug text-gray-600 md:text-base">
+                    Entorno seguro y afectivo
+                  </span>
+                </li>
+              </AnimateOnScroll>
+              <AnimateOnScroll animation="bounceIn" delay={180}>
+                <li className="flex items-start gap-3">
+                  <Image
+                    src="/uploads/img/INICIO/ic-carita-feliz.png"
+                    alt=""
+                    width={44}
+                    height={44}
+                    className="h-10 w-10 shrink-0 md:h-11 md:w-11"
+                  />
+                  <span className="pt-2 text-sm font-medium leading-snug text-gray-600 md:text-base">
+                    Aprendizaje divertido e inglés Cambridge
+                  </span>
+                </li>
+              </AnimateOnScroll>
+            </ul>
+
+            <AnimateOnScroll animation="fadeUp" delay={260}>
+              <p className="mb-6 max-w-xl text-left text-sm leading-relaxed text-gray-500">
+                Acompañamos a cada familia para que sus hijos crezcan felices,
+                seguros y preparados.
+              </p>
+              <Link
+                href="/contacto"
+                className="inline-flex min-h-11 w-fit items-center rounded-full bg-[#00D3F9] px-7 text-xs font-bold tracking-[0.16em] text-white shadow-[0_12px_28px_-12px_rgba(0,211,249,0.55)] transition hover:bg-[#00BFE0] focus-visible:outline-2 focus-visible:outline-[#00D3F9]"
+              >
+                AGENDAR CITA
+              </Link>
             </AnimateOnScroll>
           </div>
-          <AnimateOnScroll animation="fadeUp" delay={200}>
-            <p className="text-justify text-sm leading-relaxed text-gray-500">
-              Acompañamos a cada familia en esta etapa decisiva, asegurando que
-              sus hijos crezcan felices, seguros y preparados para un futuro
-              lleno de posibilidades.
-            </p>
-          </AnimateOnScroll>
         </div>
       </section>
 
@@ -300,25 +259,33 @@ export default function Home() {
                   href={nivel.href}
                   className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[#00D3F9]/15 bg-white shadow-[0_12px_40px_-18px_rgba(0,211,249,0.45)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#00D3F9]/40 hover:shadow-[0_18px_48px_-16px_rgba(232,25,44,0.25)] focus-visible:outline-2 focus-visible:outline-[#00D3F9]"
                 >
-                  <div className="flex items-center justify-center bg-gradient-to-b from-[#E8F9FC] via-[#F7FBFC] to-white px-8 pt-10 pb-4">
-                    <Image
-                      src={nivel.src}
-                      alt={nivel.alt}
-                      width={280}
-                      height={280}
-                      className="h-auto w-[200px] transition-transform duration-300 group-hover:scale-105 md:w-[240px]"
-                    />
+                  {/* 2026-08-25: CTA sube de abajo → arriba al hover; sin velo gris. */}
+                  <div className="relative flex items-center justify-center bg-gradient-to-b from-[#E8F9FC] via-[#F7FBFC] to-white px-8 pt-10 pb-4">
+                    <div className="group/img relative w-[200px] overflow-hidden md:w-[240px]">
+                      <Image
+                        src={nivel.src}
+                        alt={nivel.alt}
+                        width={280}
+                        height={280}
+                        className="h-auto w-full transition-transform duration-500 ease-out group-hover/img:scale-105"
+                      />
+                      <span
+                        className="pointer-events-none absolute inset-x-0 bottom-[12%] flex justify-center opacity-100 transition-all duration-500 ease-[cubic-bezier(0.22,1.2,0.36,1)] md:translate-y-8 md:opacity-0 md:group-hover/img:translate-y-0 md:group-hover/img:opacity-100"
+                        aria-hidden="true"
+                      >
+                        <span className="inline-flex min-h-10 items-center rounded-full bg-[#e8192c] px-5 text-[0.65rem] font-bold tracking-[0.16em] text-white shadow-[0_10px_24px_-8px_rgba(232,25,44,0.7)] sm:min-h-11 sm:px-6 sm:text-xs">
+                          CONOCER MÁS
+                        </span>
+                      </span>
+                    </div>
                   </div>
                   <div className="flex flex-1 flex-col px-8 pb-8 pt-2 text-center">
                     <h3 className="mb-2 text-xl font-bold tracking-wide text-gray-700 group-hover:text-[#00D3F9]">
                       {nivel.title}
                     </h3>
-                    <p className="mb-5 flex-1 text-sm leading-relaxed text-gray-500">
+                    <p className="text-sm leading-relaxed text-gray-500">
                       {nivel.text}
                     </p>
-                    <span className="text-xs font-bold uppercase tracking-widest text-[#e8192c]">
-                      Conocer más →
-                    </span>
                   </div>
                 </Link>
               </AnimateOnScroll>
