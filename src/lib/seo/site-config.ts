@@ -68,6 +68,8 @@ export const SITE_SOCIAL_LINKS = [
 // 2026-08-17: Portales en linea — paridad con winston93.edu.mx/servicios-en-linea.
 export const SITE_PORTALS = {
   admin: "https://servicios-admin.vercel.app/",
+  /** 2026-08-29: Servicios Escolares — login familiar; noticias y menús (servicios internos). */
+  schoolServices: "https://servicios-admin.vercel.app/",
   examSchedule: "https://agendaw.vercel.app/",
   entregaPie: "https://ssiw.vercel.app/login",
 } as const;

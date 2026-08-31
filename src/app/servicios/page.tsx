@@ -14,19 +14,19 @@ import { SITE_NAME, SITE_PORTALS, SITE_SOCIAL } from "@/lib/seo/site-config";
 export const metadata: Metadata = {
   title: "Servicios en línea para familias",
   description:
-    "Colegiaturas, inscripciones, alta de facturación y registro de examen del Instituto Educativo Winston. Acceso en línea para familias en Ciudad Madero.",
+    "Colegiaturas, inscripciones, alta de facturación, servicios internos y registro de examen del Instituto Educativo Winston. Acceso en línea para familias en Ciudad Madero.",
   alternates: { canonical: "/servicios" },
   openGraph: {
     title: "Servicios en línea | Instituto Educativo Winston",
     description:
-      "Accede a colegiaturas, inscripciones, facturación y registro de examen del Instituto Educativo Winston.",
+      "Accede a colegiaturas, inscripciones, facturación, servicios internos y registro de examen del Instituto Educativo Winston.",
     url: "/servicios",
   },
   twitter: {
     card: "summary_large_image",
     title: "Servicios en línea | Instituto Educativo Winston",
     description:
-      "Accede a colegiaturas, inscripciones, facturación y registro de examen del Instituto Educativo Winston.",
+      "Accede a colegiaturas, inscripciones, facturación, servicios internos y registro de examen del Instituto Educativo Winston.",
   },
 };
 
@@ -68,15 +68,16 @@ const PORTALES: PortalItem[] = [
     href: SITE_PORTALS.admin,
   },
   {
+    src: "/uploads/img/SERVICIOS/servicios_internos.png",
+    title: "Servicios internos",
+    description:
+      "Entra con el número de control de tu hijo para consultar noticias del plantel y menús de comida.",
+    href: SITE_PORTALS.schoolServices,
+  },
+  {
     src: "/uploads/img/SERVICIOS/tareas.png",
     title: "Tareas en línea",
     description: "Portal de tareas — disponible próximamente.",
-    disabled: true,
-  },
-  {
-    src: "/uploads/img/SERVICIOS/servicios_internos.png",
-    title: "Servicios internos",
-    description: "Herramientas del personal — disponible próximamente.",
     disabled: true,
   },
 ];
@@ -110,9 +111,9 @@ export default function ServiciosPage() {
               Servicios en línea
             </h1>
             <p className="mx-auto mb-14 max-w-xl text-center text-[15px] leading-relaxed text-[#5C656C] md:mb-16 md:text-base">
-              Pagos, inscripciones y el registro del examen de admisión, en un
-              solo lugar. Elige el servicio y te llevamos al portal
-              correspondiente.
+              Pagos, inscripciones, noticias, menús de comida y el registro del
+              examen de admisión, en un solo lugar. Elige el servicio y te
+              llevamos al portal correspondiente.
             </p>
           </AnimateOnScroll>
 
