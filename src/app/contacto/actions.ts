@@ -66,8 +66,9 @@ export async function sendContactEmail(
   try {
     await transporter.sendMail({
       // 2026-08-22: Remitente con nombre institucional correcto.
+      // 2026-09-10: Destino a Vinculación (misma bandeja que winston93); SMTP_TO opcional.
       from:    `"Instituto Educativo Winston" <${process.env.SMTP_FROM ?? process.env.SMTP_USER}>`,
-      to:      "sistemas3@winston93.edu.mx",
+      to:      process.env.SMTP_TO ?? "vinculacionw@winston93.edu.mx",
       replyTo: correo,
       subject: `Nueva solicitud de cita — ${nombre}`,
       html,
