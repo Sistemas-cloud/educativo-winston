@@ -1,8 +1,9 @@
 // 2026-04-09: Formulario de contacto (Client Component + Server Action).
 // 2026-08-22: Estilos Cuna de confianza — campos suaves, CTA claro.
+// 2026-09-11: Honeypot + timestamp anti-bot; teléfono obligatorio.
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useMemo } from "react";
 
 import { ContactFormState, sendContactEmail } from "./actions";
 
@@ -18,9 +19,27 @@ export default function ContactForm() {
     sendContactEmail,
     initialState,
   );
+  // 2026-09-11: Marca de tiempo al montar el form (bots envían en <1s)
+  const formStartedAt = useMemo(() => String(Date.now()), []);
 
   return (
     <form action={formAction} noValidate className="flex flex-col gap-5">
+      {/* Honeypot oculto: si un bot lo llena, el server descarta el envío */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden opacity-0"
+      >
+        <label htmlFor="company_website">Sitio web</label>
+        <input
+          id="company_website"
+          name="company_website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+      <input type="hidden" name="form_started_at" value={formStartedAt} />
+
       <div>
         <label htmlFor="nombre" className={labelClass}>
           Nombre del padre o tutor <span className="text-[#e8192c]">*</span>
@@ -64,12 +83,13 @@ export default function ContactForm() {
         </div>
         <div>
           <label htmlFor="telefono" className={labelClass}>
-            Teléfono
+            Teléfono <span className="text-[#e8192c]">*</span>
           </label>
           <input
             id="telefono"
             name="telefono"
             type="tel"
+            required
             autoComplete="tel"
             className={fieldClass}
           />
