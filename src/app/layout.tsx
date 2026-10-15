@@ -3,11 +3,13 @@
 // 2026-04-17: Se agrega WhatsAppButton flotante para que aparezca en todas las páginas.
 // 2026-08-17: Metadata canónica, Open Graph, Twitter Cards y JSON-LD para SEO.
 // 2026-08-20: Google Analytics / Ads (gtag G-SM4QZ0TVXT) en todas las páginas.
+// 2026-10-15: Popup Open House Maternal/Kínder al entrar.
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import GoogleAnalytics from "./components/GoogleAnalytics";
+import OpenHouseModal from "./components/OpenHouseModal";
 import WhatsAppButton from "./components/WhatsAppButton";
 import { getOrganizationSchema } from "@/lib/seo/organization-schema";
 import {
@@ -133,6 +135,8 @@ export default function RootLayout({
         {/* 2026-08-20: gtag en layout = todas las rutas del portal. */}
         <GoogleAnalytics />
         {children}
+        {/* 2026-10-15: Debajo de la pantalla de carga (z-9999); queda visible al terminar. */}
+        <OpenHouseModal />
         {/* 2026-04-17: Botón flotante de WhatsApp presente en todo el sitio. */}
         <WhatsAppButton />
       </body>
